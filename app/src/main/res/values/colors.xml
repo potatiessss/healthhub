@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#73BDC8</color>
+
+    <!-- Tab colors -->
+    <color name="activeTabColor">#A9A9A9</color> <!-- Replace with your actual active tab color -->
+    <color name="inactiveTabColor">#CCCCCC</color> <!-- Replace with your actual inactive tab color -->
+
 </resources>
