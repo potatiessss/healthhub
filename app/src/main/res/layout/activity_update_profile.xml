@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/updateProfile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateProfile"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:layout_margin="15dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/TV_update_profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:padding="6dp"
+                android:text="Name"
+                android:textSize="18sp"
+                android:textColor="@color/green" />
+
+            <EditText
+                android:id="@+id/ET_UpdatedName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_update_profile_name"
+                android:background="@drawable/brder"
+                android:inputType="textPersonName"
+                android:padding="6dp"
+                android:textSize="16sp"
+                android:hint="Enter full name"/>
+
+            <TextView
+                android:id="@+id/TV_update_profile_DOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_UpdatedName"
+                android:layout_marginTop="30dp"
+                android:padding="6dp"
+                android:text="Date of Birth"
+                android:textSize="18sp"
+                android:textColor="@color/green" />
+
+            <EditText
+                android:id="@+id/ET_UpdatedDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_update_profile_DOB"
+                android:background="@drawable/brder"
+                android:inputType="date"
+                android:padding="6dp"
+                android:textSize="16sp"
+                android:hint="Select your Date of Birth"/>
+
+            <TextView
+                android:id="@+id/TV_update_profile_Gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ET_UpdatedDOB"
+                android:layout_marginTop="30dp"
+                android:padding="6dp"
+                android:text="Gender"
+                android:textSize="18sp"
+                android:textColor="@color/green" />
+
+            <RadioGroup
+                android:id="@+id/RG_UpdateGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_update_profile_Gender"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/RB_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:textSize="16sp"
+                    android:textColor="#666666"/>
+
+                <RadioButton
+                    android:id="@+id/RB_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:textSize="16sp"
+                    android:textColor="#666666"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/TV_uploadProfilepic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RG_UpdateGender"
+                android:textStyle="italic"
+                android:layout_marginTop="30dp"
+                android:padding="4dp"
+                android:text="Upload Profile Pic?"
+                android:textSize="15sp"
+                android:textColor="@color/green"
+                />
+
+            <TextView
+                android:id="@+id/TV_updateEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_uploadProfilepic"
+                android:textStyle="italic"
+                android:layout_marginTop="2dp"
+                android:padding="4dp"
+                android:text="Change email?"
+                android:textSize="15sp"
+                android:textColor="@color/green"
+                />
+
+            <TextView
+                android:id="@+id/TV_changePW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TV_updateEmail"
+                android:layout_marginTop="2dp"
+                android:padding="4dp"
+                android:text="Change password?"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:textColor="@color/green"/>
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/updateProfile_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Update Profile "
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_margin="15dp"
+            android:backgroundTint="@color/green"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:gravity="center" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:elevation="10dp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+</ScrollView>

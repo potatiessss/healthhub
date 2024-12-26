@@ -9,40 +9,49 @@
     tools:context=".Login">
 
     <EditText
-        android:id="@+id/editTextUsername"
-        android:layout_width="309dp"
-        android:layout_height="45dp"
+        android:id="@+id/editTextEmail"
+        android:layout_width="310dp"
+        android:layout_height="58dp"
         android:background="@drawable/input_bg"
         android:drawablePadding="10dp"
+        android:hint="Enter your email"
         android:inputType="text"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
+        android:textColorHint="@color/grey"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TV_Username"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintTop_toBottomOf="@+id/TV_Email"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextPW"
-        android:layout_width="309dp"
-        android:layout_height="45dp"
+        android:layout_width="310dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="236dp"
         android:background="@drawable/input_bg"
         android:drawablePadding="10dp"
+        android:hint="Confirm your password"
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
+        android:textColorHint="@color/grey"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TV_password"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
+
+
 
     <TextView
         android:id="@+id/TV_wlcBack"
@@ -60,7 +69,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.229" />
 
-
     <TextView
         android:id="@+id/TV_afterWlc"
         android:layout_width="wrap_content"
@@ -75,22 +83,22 @@
         app:layout_constraintTop_toBottomOf="@+id/TV_wlcBack"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
-        android:id="@+id/TV_Username"
+        android:id="@+id/TV_Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/interfont"
-        android:text="Username"
+        android:text="Email"
         android:textColor="@color/green"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TV_afterWlc"
-        app:layout_constraintVertical_bias="0.181" />
-
+        app:layout_constraintVertical_bias="0.19" />
 
     <TextView
         android:id="@+id/TV_password"
@@ -106,14 +114,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
         app:layout_constraintVertical_bias="0.434" />
 
 
     <Button
         android:id="@+id/Login_Button"
-        android:layout_width="305dp"
-        android:layout_height="42dp"
+        android:layout_width="307dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/green"
         android:text="Login"
         android:textSize="18sp"
@@ -124,6 +132,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPW"
         app:layout_constraintVertical_bias="0.304" />
+
 
     <TextView
         android:id="@+id/TV_dont"
@@ -149,6 +158,16 @@
         app:layout_constraintStart_toEndOf="@+id/TV_dont"
         app:layout_constraintTop_toBottomOf="@+id/Login_Button"
         app:layout_constraintVertical_bias="0.056" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:elevation="10dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
