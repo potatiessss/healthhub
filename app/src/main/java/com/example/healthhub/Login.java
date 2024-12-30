@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,33 +41,30 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String username = edUsername.getText().toString();
                 String password = edPassword.getText().toString();
-                Database db = new Database(getApplicationContext(),"healthcare",null, 1);
-                if(username.length()==0 || password.length()==0){
-                    Toast.makeText(getApplicationContext(),"Please fill all details",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if(db.login(username, password)==1){
-                        Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
-                        SharedPreferences sharedpreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                Database db = new Database(getApplicationContext(), "healthcare", null, 1);
+                if (username.length() == 0 || password.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "Please fill all details", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (db.login(username, password) == 1) {
+                        Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("username", username);
-                        //to save data with key and value
+                        editor.putBoolean("isLoggedIn", true); // Track login state
                         editor.apply();
-                        startActivity(new Intent(Login.this, HomeFragment.class));
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Invalid Username and Password",Toast.LENGTH_SHORT).show();
+                        Log.d("LoginActivity", "Login successful, isLoggedIn set to true");
+                        startActivity(new Intent(Login.this, MainActivity.class));
+                        finish(); // Close Login activity
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Invalid Username and Password", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
-        tvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, HomeFragment.class));
-            }
-        });
+
+        tvRegister.setOnClickListener(v -> startActivity(new Intent(Login.this, Register.class)));
+
 
 
 

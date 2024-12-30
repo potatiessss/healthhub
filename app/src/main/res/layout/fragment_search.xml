@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search"
+    android:background = "@drawable/plain_white_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageButton
+        android:id="@+id/back_button_search"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:scaleType="fitXY"
+        android:src="@drawable/back_button"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="27dp" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/search_bar_product"
+        android:layout_width="290dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="668dp"
+        android:background="@drawable/input_bg"
+        android:drawablePadding="10dp"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/search_button_search"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:scaleType="fitXY"
+        android:src="@drawable/search_button"
+        tools:layout_editor_absoluteX="358dp"
+        tools:layout_editor_absoluteY="27dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

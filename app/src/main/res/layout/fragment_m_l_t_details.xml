@@ -1,14 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MLTDetails"
+    android:background="@drawable/mltdetails_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MLTDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/back_button_MLTDetails"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:scaleType="fitXY"
+        android:src="@drawable/back_button_inversed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <!-- Cart Button -->
+    <ImageButton
+        android:id="@+id/cart_button_MLTDetails"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:scaleType="fitXY"
+        android:src="@drawable/cart_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Product Image -->
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="155dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ibuprofen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Product Category -->
+    <TextView
+        android:id="@+id/product_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="16dp"
+        android:text="MEDICINE"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_image" />
+
+    <!-- Product Price -->
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="RM 8.00"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/product_category"
+        app:layout_constraintTop_toBottomOf="@id/product_category" />
+
+    <!-- Product Name -->
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Ibuprofen (400mg)"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/product_price"
+        app:layout_constraintTop_toBottomOf="@id/product_price" />
+
+    <!-- Buy Now Button -->
+    <Button
+        android:id="@+id/buy_now_button"
+        android:layout_width="213dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/green"
+        android:text="Buy Now"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_name" />
+
+    <!-- Useful For Header -->
+    <TextView
+        android:id="@+id/useful_for_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Useful for:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/product_name"
+        app:layout_constraintTop_toBottomOf="@id/buy_now_button" />
+
+    <!-- Useful For Details -->
+    <TextView
+        android:id="@+id/useful_for_text_details"
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Relieving pain, inflammation, and fever (e.g., arthritis, menstrual pain)."
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/useful_for_text"
+        app:layout_constraintTop_toBottomOf="@id/useful_for_text" />
+
+    <!-- Dosage Header -->
+    <TextView
+        android:id="@+id/dosage_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dosage:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/useful_for_text"
+        app:layout_constraintTop_toBottomOf="@id/useful_for_text_details" />
+
+    <!-- Dosage Details -->
+    <TextView
+        android:id="@+id/dosage_text_details"
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1 tablet every 6-8 hours, not exceeding 3 tablets daily."
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/dosage_text"
+        app:layout_constraintTop_toBottomOf="@id/dosage_text" />
+
+    <!-- Postage Header -->
+    <TextView
+        android:id="@+id/postage_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Postage:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/dosage_text"
+        app:layout_constraintTop_toBottomOf="@id/dosage_text_details" />
+
+    <!-- Postage Details -->
+    <TextView
+        android:id="@+id/postage_text_details"
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="1-2 working days, RM3.00 shipping fee."
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/postage_text"
+        app:layout_constraintTop_toBottomOf="@id/postage_text" />
+
+    <!-- Add To Cart Button -->
+    <Button
+        android:id="@+id/add_to_cart_button"
+        android:layout_width="213dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/green"
+        android:text="Add To Cart"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.healthhub.models.Product;
+
 import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper {
@@ -26,6 +28,9 @@ public class Database extends SQLiteOpenHelper {
 
         String qry3 = "create table orderplace(username text, fullname text,address text,contactno text,pincode int,date text,time text,amount float,otype text)";
         sqLiteDatabase.execSQL(qry3);
+
+        //String qry4 = "CREATE TABLE products(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category TEXT, price TEXT, useful_for TEXT, dosage TEXT, postage TEXT, image_res_id INTEGER)";
+        //sqLiteDatabase.execSQL(qry4);
     }
 
     @Override
@@ -79,7 +84,52 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public void addCart(String username, String product, float price, String otype){
+
+    /*public void addProduct(String name, String category, String price, String usefulFor, String dosage, String postage, int imageResId) {
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        cv.put("category", category);
+        cv.put("price", price);
+        cv.put("useful_for", usefulFor);
+        cv.put("dosage", dosage);
+        cv.put("postage", postage);
+        cv.put("image_res_id", imageResId);
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert("products", null, cv);
+        db.close();
+    }
+
+    // Fetch all products from the database
+    public ArrayList<Product> getProducts() {
+        ArrayList<Product> productList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM products", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0); // ID (optional, not used in Product class)
+                String name = cursor.getString(1);
+                String category = cursor.getString(2);
+                String price = cursor.getString(3);
+                String usefulFor = cursor.getString(4);
+                String dosage = cursor.getString(5);
+                String postage = cursor.getString(6);
+                int imageResId = cursor.getInt(7);
+
+                // Create a Product object and add it to the list
+                Product product = new Product(name, category, price, usefulFor, dosage, postage, imageResId);
+                productList.add(product);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return productList;
+    }*/
+
+    /*public void addCart(String username, String product, float price, String otype){
         ContentValues cv = new ContentValues();
         cv.put("username",username);
         cv.put("product", product);
@@ -160,6 +210,6 @@ public class Database extends SQLiteOpenHelper {
         }
         db.close();
         return arr;
-    }
+    }*/
 
 }
