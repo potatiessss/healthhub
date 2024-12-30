@@ -12,7 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthHub"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".ChangeEmail"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateProfile"
+            android:exported="false" />
+        <activity
+            android:name=".UploadProfilePic"
+            android:exported="false" />
+        <activity
+            android:name=".FragmentsContainer"
+            android:exported="false" />
         <activity
             android:name=".Register"
             android:exported="false" />
@@ -24,6 +38,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

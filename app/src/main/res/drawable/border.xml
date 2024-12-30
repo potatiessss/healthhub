@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/white" />
+    <corners android:radius="70dp" />
+
+    <!-- Adjust padding to make the shape appear larger -->
+    <padding
+        android:left="0dp"
+        android:right="0dp"
+        android:top="200dp"
+        android:bottom="250dp" />
+</shape>
