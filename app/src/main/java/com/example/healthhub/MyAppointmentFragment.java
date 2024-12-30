@@ -1,64 +1,87 @@
 package com.example.healthhub;
 
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyAppointmentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MyAppointmentFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView rvAppointments;
+    private AppointmentAdapter appointmentAdapter;
+    private Button btnUpcoming, btnPast;
+    private Database database;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private List<Appointment> upcomingAppointments;
+    private List<Appointment> pastAppointments;
 
-    public MyAppointmentFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyAppointmentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyAppointmentFragment newInstance(String param1, String param2) {
-        MyAppointmentFragment fragment = new MyAppointmentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_my_appointment, container, false);
+
+        // Initialize views
+        rvAppointments = view.findViewById(R.id.rv_appointments);
+        btnUpcoming = view.findViewById(R.id.btn_upcoming);
+        btnPast = view.findViewById(R.id.btn_past);
+
+        // Initialize database
+        database = new Database(requireContext(), "HealthHub.db", null, 1);
+
+        // Fetch appointments from the database
+        List<Appointment> allAppointments = database.getAppointments("current_user");
+
+        // Filter appointments into upcoming and past
+        filterAppointments(allAppointments);
+
+        // Setup RecyclerView
+        rvAppointments.setLayoutManager(new LinearLayoutManager(getContext()));
+        appointmentAdapter = new AppointmentAdapter(upcomingAppointments, view);
+        rvAppointments.setAdapter(appointmentAdapter);
+
+        // Button click listeners
+        btnUpcoming.setOnClickListener(v -> {
+            btnUpcoming.setBackgroundResource(R.drawable.tab_active);
+            btnPast.setBackgroundResource(R.drawable.tab_inactive);
+            appointmentAdapter.updateData(upcomingAppointments);
+        });
+
+        btnPast.setOnClickListener(v -> {
+            btnPast.setBackgroundResource(R.drawable.tab_active);
+            btnUpcoming.setBackgroundResource(R.drawable.tab_inactive);
+            appointmentAdapter.updateData(pastAppointments);
+        });
+
+        return view;
+    }
+
+    private void filterAppointments(List<Appointment> allAppointments) {
+        upcomingAppointments = new ArrayList<>();
+        pastAppointments = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        for (Appointment appointment : allAppointments) {
+            try {
+                Date appointmentDate = sdf.parse(appointment.getAppointmentTime());
+                Date currentDate = new Date();
+                if (appointmentDate.after(currentDate)) {
+                    upcomingAppointments.add(appointment);
+                } else {
+                    pastAppointments.add(appointment);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_appointment, container, false);
     }
 }

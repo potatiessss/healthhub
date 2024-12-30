@@ -3,10 +3,15 @@ package com.example.healthhub;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +60,31 @@ public class DoctorListFragment extends Fragment {
         }
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doctor_list, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_doctor_list, container, false);
+
+        // Initialize RecyclerView
+        RecyclerView recyclerView = view.findViewById(R.id.rv_search_results);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Fetch doctors from the database
+        Database database = new Database(getContext(), "HealthHub.db", null, 1);
+        List<Doctor> doctorList = database.getAllDoctors();
+
+        // Set up the adapter with a click listener
+        DoctorAdapter adapter = new DoctorAdapter(doctorList, doctor -> {
+            // Navigate to DoctorDetailsFragment on doctor card click
+            Bundle bundle = new Bundle();
+            bundle.putInt("doctorId", doctor.getId()); // Pass the doctor ID to the details fragment
+            Navigation.findNavController(view).navigate(R.id.action_doctorListFragment_to_doctorDetailsFragment, bundle);
+        });
+
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
+
+
 }

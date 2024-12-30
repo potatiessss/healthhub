@@ -1,12 +1,19 @@
 package com.example.healthhub;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.EditText;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,9 +63,67 @@ public class AppointmentFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_appointment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_appointment, container, false);
+
+        // Initialize CalendarView
+        CalendarView calendarView = view.findViewById(R.id.calendar_view);
+
+        // Initialize Database
+        Database database = new Database(requireContext(), "HealthHub.db", null, 1);
+
+        // Add listener for CalendarView date selection
+        calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
+            // Format selected date
+            String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+
+            // Handle date selection (e.g., open booking dialog)
+            handleDateSelection(selectedDate, database);
+        });
+
+        // Load appointments into RecyclerView
+        loadAppointments(view, database);
+
+        return view;
     }
+    private void loadAppointments(View view, Database database) {
+        List<Appointment> appointments = database.getOrderData("current_user"); // Replace with actual username logic
+
+        // Set up RecyclerView
+        RecyclerView recyclerView = view.findViewById(R.id.rv_appointments);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        AppointmentAdapter adapter = new AppointmentAdapter(appointments, view);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+    private void handleDateSelection(String date, Database database) {
+        // Example dialog for booking an appointment
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Book Appointment");
+
+        // Inflate custom booking layout
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_book_appointment, null);
+        builder.setView(dialogView);
+
+        // Input fields in the dialog
+        EditText etDoctorName = dialogView.findViewById(R.id.et_doctor_name);
+        EditText etTime = dialogView.findViewById(R.id.et_time);
+
+        builder.setPositiveButton("Book", (dialog, which) -> {
+            String doctorName = etDoctorName.getText().toString();
+            String time = etTime.getText().toString();
+
+            // Save appointment to the database
+            database.addAppointment("current_user", doctorName, date, time); // Replace "current_user" with actual username
+
+            // Refresh appointments in RecyclerView
+            loadAppointments(requireView(), database);
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
+
 }

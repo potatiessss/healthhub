@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/backgroundColor">
+    <!--  Search Bar  -->
+    <LinearLayout android:id="@+id/search_bar" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="12dp" android:background="@drawable/rounded_background" android:layout_margin="16dp">
+        <!--  Search EditText  -->
+        <EditText android:id="@+id/et_search_doctor" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="Dr. Mohamad Hazim" android:padding="8dp" android:background="@drawable/rounded_border" android:drawableStart="@drawable/ic_search" android:drawablePadding="8dp" android:imeOptions="actionSearch" android:inputType="text"/>
+        <!--  Camera Search Button  -->
+        <ImageButton android:id="@+id/btn_camera_search" android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/baseline_camera_alt_24" android:background="?attr/selectableItemBackground" android:contentDescription="Camera Search" android:layout_marginStart="8dp"/>
+        <!--  Search Button  -->
+        <ImageButton android:id="@+id/btn_search_icon" android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_search" android:background="?attr/selectableItemBackground" android:contentDescription="Search"/>
+    </LinearLayout>
+    <!--  Top Results Text  -->
+    <TextView android:id="@+id/tv_top_results" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/search_bar" android:layout_marginTop="16dp" android:layout_marginStart="16dp" android:text="Top results" android:textSize="18sp" android:textStyle="bold" android:textColor="@android:color/black"/>
+    <!--  RecyclerView for Results  -->
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_search_results" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/tv_top_results" android:layout_marginTop="8dp" android:padding="16dp"/>
+</RelativeLayout>

@@ -1,74 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/uploadPic"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UploadProfilePic">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_margin="15dp"
-        android:background="@color/white">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/TV_uploadPicHead"
-            android:text="Upload your profile pic"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/uploadPic_chooseBtn"
-            android:layout_below="@+id/TV_uploadPicHead"
-            android:layout_marginTop="20dp"
-            android:text="Choose Picture"
-            android:layout_marginRight="70dp"
-            android:layout_marginLeft="70dp"
-            android:backgroundTint="@color/green"
-            />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView_profilePic"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/border"
-            android:layout_below="@+id/uploadPic_chooseBtn"
-            />
-
-        <Button
-            android:id="@+id/upload_pic_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageView_profilePic"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="70dp"
-            android:text="Upload" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:elevation="10dp"
-            android:visibility="gone" />
-
-
-
-    </RelativeLayout>
-
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/baby_blue" android:padding="16dp">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_horizontal">
+        <!--  Choose Specialist Dropdown  -->
+        <TextView android:id="@+id/tv_choose_specialist" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Choose specialist" android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/black" android:layout_marginBottom="8dp"/>
+        <Spinner android:id="@+id/spinner_specialist" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_spinner" android:layout_marginBottom="16dp"/>
+        <!--  Choose a Date  -->
+        <TextView android:id="@+id/tv_choose_date" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Choose a date" android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/black" android:layout_marginBottom="8dp"/>
+        <CalendarView android:id="@+id/calendar_view" android:layout_width="match_parent" android:layout_height="315dp" android:layout_marginBottom="16dp" android:background="@drawable/rounded_calendar"/>
+        <!--  Choose Time  -->
+        <TextView android:id="@+id/tv_choose_time" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Choose time" android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/black" android:layout_marginBottom="8dp"/>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:gravity="center">
+            <Button android:id="@+id/btn_morning" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Morning" android:backgroundTint="@color/black" android:layout_marginEnd="16dp"/>
+            <Button android:id="@+id/btn_afternoon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Afternoon" android:backgroundTint="@color/black"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:gravity="center">
+            <Button android:id="@+id/btn_time1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8:00 am" android:layout_marginEnd="16dp" android:backgroundTint="@color/white" android:textColor="@android:color/black"/>
+            <Button android:id="@+id/btn_time2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="9:00 am" android:layout_marginEnd="16dp" android:backgroundTint="@color/white" android:textColor="@android:color/black"/>
+            <Button android:id="@+id/btn_time3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="10:00 am" android:backgroundTint="@color/white" android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <!--  Action Buttons  -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="1dp" android:layout_marginBottom="16dp" android:gravity="center" android:orientation="horizontal">
+            <Button android:id="@+id/btn_time4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:backgroundTint="@color/white" android:text="11:00 am" android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center">
+            <Button android:id="@+id/btn_reset" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:backgroundTint="@color/white" android:text="Reset" android:textColor="@android:color/black"/>
+            <Button android:id="@+id/btn_find_specialist" android:layout_width="wrap_content" android:layout_height="wrap_content" android:backgroundTint="@color/black" android:text="Find Specialist"/>
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

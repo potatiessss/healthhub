@@ -10,12 +10,29 @@
         android:id="@+id/Home"
         android:name="com.example.healthhub.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_appointmentFragment"
+            app:destination="@id/Appointment" />
+        <action
+            android:id="@+id/action_Home_to_pharmacyFragment"
+            app:destination="@id/pharmacyFragment" />
+        <action
+            android:id="@+id/action_home_to_articleFragment"
+            app:destination="@id/Article" />
+        <action
+            android:id="@+id/action_home_to_myAppointmentFragment"
+            app:destination="@id/myAppointmentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/Appointment"
         android:name="com.example.healthhub.AppointmentFragment"
         android:label="fragment_appointment"
-        tools:layout="@layout/fragment_appointment" />
+        tools:layout="@layout/fragment_appointment" >
+        <action
+            android:id="@+id/action_Appointment_to_doctorSearchFragment"
+            app:destination="@id/doctorSearchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/Article"
         android:name="com.example.healthhub.ArticlesFragment"
@@ -31,4 +48,32 @@
         android:name="com.example.healthhub.MyProfileFragment"
         android:label="fragment_my_profile"
         tools:layout="@layout/fragment_my_profile" />
+    <fragment
+        android:id="@+id/pharmacyFragment"
+        android:name="com.example.healthhub.PharmacyFragment"
+        android:label="PharmacyFragment" />
+    <fragment
+        android:id="@+id/myAppointmentFragment"
+        android:name="com.example.healthhub.MyAppointmentFragment"
+        android:label="MyAppointmentFragment" />
+    <fragment
+        android:id="@+id/doctorSearchFragment"
+        android:name="com.example.healthhub.DoctorSearchFragment"
+        android:label="DoctorSearchFragment" >
+        <action
+            android:id="@+id/action_doctorSearchFragment_to_doctorDetailsFragment"
+            app:destination="@id/doctorDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorDetailsFragment"
+        android:name="com.example.healthhub.DoctorDetailsFragment"
+        android:label="DoctorDetailsFragment" />
+    <fragment
+        android:id="@+id/doctorListFragment"
+        android:name="com.example.healthhub.DoctorListFragment"
+        android:label="DoctorListFragment" >
+        <action
+            android:id="@+id/action_doctorListFragment_to_doctorDetailsFragment"
+            app:destination="@id/doctorDetailsFragment" />
+    </fragment>
 </navigation>
