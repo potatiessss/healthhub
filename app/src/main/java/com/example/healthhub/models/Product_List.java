@@ -1,17 +1,18 @@
 package com.example.healthhub.models;
 
-
-//for recyclerview
 public class Product_List {
 
     String name;
-    String price;
-    int image;
+    double price;
+    String image;  // Image URL as String
 
-    public Product_List(String name, String price, int image) {
+    String productId;
+
+    public Product_List(String name, double price, String image, String productId) {
         this.name = name;
         this.price = price;
         this.image = image;
+        this.productId = productId;
     }
 
     public String getName() {
@@ -22,19 +23,27 @@ public class Product_List {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getImage() {
+    public String getImage() {  // Return the image URL as String
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getProductId() {  // Return the image URL as String
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

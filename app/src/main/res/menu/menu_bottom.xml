@@ -17,7 +17,7 @@
         android:title=""/>
 
     <item
-        android:id="@+id/Cart"
+        android:id="@+id/Pharmacy"
         android:icon="@drawable/ic_cart"
         android:title=""/>
 

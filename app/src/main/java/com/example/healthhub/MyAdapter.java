@@ -13,10 +13,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthhub.models.Product_List;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-//this class is for recyclerview purposes
+// This class is for RecyclerView purposes
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ProductViewHolder> {
 
     private Context context;
@@ -38,16 +39,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ProductViewHolder>
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product_List product = productList.get(position);
         holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText(product.getPrice());
-        holder.productImageView.setImageResource(product.getImage());
+        holder.priceTextView.setText(String.format("$%.2f", product.getPrice()));
 
-        //imagebutton clicklistener to product details
+        // Use Picasso to load image from URL
+        Picasso.get().load(product.getImage()).into(holder.productImageView);
+
         holder.productImageView.setOnClickListener(v -> {
-            navigateToMLTDetails(product.getName(), "MEDICINE", product.getPrice(), "Useful info", "Dosage info", "Postage info", product.getImage());
+            navigateToMLTDetails(
+                    product.getName(),
+                    "MEDICINE", // Replace with actual category if available
+                    product.getPrice(), // Pass the price as double
+                    "Useful info", // Replace with actual useful info
+                    "Dosage info", // Replace with actual dosage info
+                    "Postage info", // Replace with actual postage info
+                    product.getImage(),  // Pass the image URL as String
+                    product.getProductId() // Pass the product ID
+            );
         });
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -67,23 +76,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ProductViewHolder>
         }
     }
 
-    private void navigateToMLTDetails(String name, String category, String price, String usefulFor, String dosage, String postage, int imageResId) {
+    // Adjusted method to accept String for image URL instead of int
+    private void navigateToMLTDetails(String name, String category, double price, String usefulFor, String dosage, String postage, String imageUrl, String productId) {
         if (context instanceof FragmentActivity) {
             FragmentActivity activity = (FragmentActivity) context;
             Bundle bundle = new Bundle();
             bundle.putString("name", name);
             bundle.putString("category", category);
-            bundle.putString("price", price);
+            bundle.putDouble("price", price); // Store the price as double
             bundle.putString("usefulFor", usefulFor);
             bundle.putString("dosage", dosage);
             bundle.putString("postage", postage);
-            bundle.putInt("imageResId", imageResId);
+            bundle.putString("imageUrl", imageUrl);  // Store the image URL as String
+            bundle.putString("productId", productId); // Store the product ID
 
             MLTDetailsFragment fragment = new MLTDetailsFragment();
             fragment.setArguments(bundle);
 
             activity.getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.emptyFragment, fragment)
                     .addToBackStack(null)
                     .commit();
         }
