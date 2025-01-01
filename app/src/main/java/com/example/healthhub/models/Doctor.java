@@ -3,12 +3,12 @@ package com.example.healthhub.models;
 public class Doctor {
     private String doctorId; // Unique ID for the doctor
     private String about; // Description about the doctor
-    private String awards; // Awards received by the doctor
+    private int awards; // Awards received by the doctor
     private String drName; // Doctor's name
     private String drAddress; // Doctor's address
     private String drImage; // URL or path to the doctor's image
     private String drPhone; // Doctor's phone number
-    private String exp; // Experience of the doctor
+    private int exp; // Experience of the doctor
     private double fee; // Consultation fee
     private String field; // Medical field or specialization
     private String workingTime; // Working hours of the doctor
@@ -17,7 +17,7 @@ public class Doctor {
     public Doctor() {}
 
     // Constructor to initialize all fields
-    public Doctor(String doctorId, String about, String awards, String drName, String drAddress, String drImage, String drPhone, String exp, double fee, String field, String workingTime) {
+    public Doctor(String doctorId, String about, int awards, String drName, String drAddress, String drImage, String drPhone, int exp, double fee, String field, String workingTime) {
         this.doctorId = doctorId;
         this.about = about;
         this.awards = awards;
@@ -48,11 +48,11 @@ public class Doctor {
         this.about = about;
     }
 
-    public String getAwards() {
+    public int getAwards() {
         return awards;
     }
 
-    public void setAwards(String awards) {
+    public void setAwards(int awards) {
         this.awards = awards;
     }
 
@@ -88,11 +88,11 @@ public class Doctor {
         this.drPhone = drPhone;
     }
 
-    public String getExp() {
+    public int getExp() {
         return exp;
     }
 
-    public void setExp(String exp) {
+    public void setExp(int exp) {
         this.exp = exp;
     }
 
