@@ -32,6 +32,7 @@ public class Options extends AppCompatActivity {
             }
         });
 
+
         loginTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

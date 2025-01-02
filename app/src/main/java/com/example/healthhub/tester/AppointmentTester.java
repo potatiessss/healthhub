@@ -170,4 +170,5 @@ public class AppointmentTester extends Fragment {
                     Log.e(TAG, "Failed to add appointment ID to doctor: " + e.getMessage());
                 });
     }
+
 }

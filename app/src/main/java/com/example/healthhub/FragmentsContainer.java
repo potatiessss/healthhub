@@ -42,4 +42,5 @@ public class FragmentsContainer extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNav, navController);
     }
 
+
 }

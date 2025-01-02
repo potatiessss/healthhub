@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+
     <!-- Article Title -->
     <TextView
         android:id="@+id/articleTitle"
