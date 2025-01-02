@@ -1,64 +1,158 @@
 package com.example.healthhub;
 
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import com.example.healthhub.models.Product;
+import com.example.healthhub.models.Product_Firebase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PharmacyFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class PharmacyFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public PharmacyFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PharmacyFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PharmacyFragment newInstance(String param1, String param2) {
-        PharmacyFragment fragment = new PharmacyFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_pharmacy, container, false);
+
+        //ImageButton backButton = view.findViewById(R.id.hamburger_menu);
+        //backButton.setOnClickListener(v -> requireActivity().onBackPressed());
+
+        ImageButton viewmoreButton = view.findViewById(R.id.viewmore_button);
+        viewmoreButton.setOnClickListener(v -> {
+            MLTListFragment fragment = new MLTListFragment();
+
+            Bundle bundle = new Bundle();
+
+            fragment.setArguments(bundle);
+
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.emptyFragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+
+        ImageButton productButton1 = view.findViewById(R.id.popular_product1);
+        productButton1.setOnClickListener(v -> {
+            Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
+                @Override
+                public void onProductsFetched(List<Product> products) {
+                    Product product = findProductByName(products, "Ibuprofen (400mg)");
+                    if (product != null) {
+                        navigateToMLTDetails(product);
+                    }
+                }
+
+                @Override
+                public void onProductsFetchFailed(Exception exception) {
+                    // Handle error if fetching fails
+                }
+            });
+        });
+
+        ImageButton productButton2 = view.findViewById(R.id.popular_product2);
+        productButton2.setOnClickListener(v -> {
+            Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
+                @Override
+                public void onProductsFetched(List<Product> products) {
+                    Product product = findProductByName(products, "Pregnancy Test");
+                    if (product != null) {
+                        navigateToMLTDetails(product);
+                    }
+                }
+
+                @Override
+                public void onProductsFetchFailed(Exception exception) {
+                    // Handle error if fetching fails
+                }
+            });
+        });
+
+        ImageButton productButton3 = view.findViewById(R.id.popular_product3);
+        productButton3.setOnClickListener(v -> {
+            Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
+                @Override
+                public void onProductsFetched(List<Product> products) {
+                    Product product = findProductByName(products, "Salbutamol Inhaler (100mcg)");
+                    if (product != null) {
+                        navigateToMLTDetails(product);
+                    }
+                }
+
+                @Override
+                public void onProductsFetchFailed(Exception exception) {
+                    // Handle error if fetching fails
+                }
+            });
+        });
+
+        return view;
+    }
+
+    private void navigateToMLTDetails(Product product) {
+        Bundle bundle = new Bundle();
+        bundle.putString("name", product.getName());
+        bundle.putString("category", product.getCategory());
+        bundle.putDouble("price", product.getPrice());
+        bundle.putString("usefulFor", product.getUsefulFor());
+        bundle.putString("dosage", product.getDosage());
+        bundle.putString("postage", product.getPostage());
+        bundle.putString("imageUrl", product.getImage());
+        bundle.putString("productId", product.getProductId());
+
+        MLTDetailsFragment fragment = new MLTDetailsFragment();
+        fragment.setArguments(bundle);
+
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.emptyFragment, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void navigateToMLTList(Product product) {
+        if (product == null) {
+            Log.w("PharmacyFragment", "Product is null, cannot navigate");
+            return;
         }
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", product.getName() != null ? product.getName() : "Unknown");
+        bundle.putString("category", product.getCategory() != null ? product.getCategory() : "Unknown");
+        bundle.putString("price", product.getPrice() != 0 ? String.valueOf(product.getPrice()) : "Unknown");
+        bundle.putString("usefulFor", product.getUsefulFor() != null ? product.getUsefulFor() : "Unknown");
+        bundle.putString("dosage", product.getDosage() != null ? product.getDosage() : "Unknown");
+        bundle.putString("postage", product.getPostage() != null ? product.getPostage() : "Unknown");
+        bundle.putString("imageUrl", product.getImage());
+        bundle.putString("productId", product.getProductId() != null ? product.getProductId() : "Unknown");
+
+
+        MLTListFragment fragment = new MLTListFragment();
+        fragment.setArguments(bundle);
+
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.emptyFragment, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pharmacy, container, false);
+
+    private Product findProductByName(List<Product> products, String name) {
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
     }
 }
+

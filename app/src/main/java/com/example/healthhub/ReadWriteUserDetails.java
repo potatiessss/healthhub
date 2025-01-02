@@ -11,3 +11,4 @@ public class ReadWriteUserDetails {
         this.gender = textGender;
     }
 }
+

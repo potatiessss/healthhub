@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ChangePassword extends AppCompatActivity {
 
+
     FirebaseAuth authProfile;
     EditText editTextCPW, editTextNPW, edtEditTextNPWConfirm;
     TextView textViewAuthenticate;

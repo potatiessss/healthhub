@@ -24,6 +24,7 @@ public class MyOrdersFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     public MyOrdersFragment() {
         // Required empty public constructor
     }

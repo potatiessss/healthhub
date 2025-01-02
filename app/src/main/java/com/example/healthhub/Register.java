@@ -36,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
+
 public class Register extends AppCompatActivity {
 
     EditText edFullname, edEmail, edPassword, edConfirm, edDOB;

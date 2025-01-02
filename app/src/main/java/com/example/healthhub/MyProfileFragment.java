@@ -42,6 +42,7 @@ public class MyProfileFragment extends Fragment {
     private FirebaseAuth authProfile;
     private Button updateProfile;
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
