@@ -45,6 +45,7 @@ public class Appointment {
         return fullname;
     }
 
+
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }

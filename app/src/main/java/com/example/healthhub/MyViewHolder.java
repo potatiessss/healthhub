@@ -20,4 +20,3 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         priceView = itemView.findViewById(R.id.product_price);
     }
 }
-

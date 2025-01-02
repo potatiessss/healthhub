@@ -19,6 +19,7 @@ public class UploadProfilePic extends AppCompatActivity {
     ImageView imageViewUploadPic;
     FirebaseAuth authProfile;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

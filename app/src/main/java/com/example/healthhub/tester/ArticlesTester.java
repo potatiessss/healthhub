@@ -58,6 +58,7 @@ public class ArticlesTester extends Fragment {
                 } else {
                     Toast.makeText(getContext(), "Failed to save article", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
