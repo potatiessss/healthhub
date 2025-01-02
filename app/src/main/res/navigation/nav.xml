@@ -22,9 +22,9 @@
         android:label="fragment_articles"
         tools:layout="@layout/fragment_articles" />
     <fragment
-        android:id="@+id/Cart"
-        android:name="com.example.healthhub.CartFragment"
-        android:label="fragment_cart"
+        android:id="@+id/Pharmacy"
+        android:name="com.example.healthhub.PharmacyFragment"
+        android:label="fragment_pharmacy"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/MyProfileFragment"
