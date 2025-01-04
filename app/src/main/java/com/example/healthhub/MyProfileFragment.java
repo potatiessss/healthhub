@@ -1,7 +1,9 @@
 
+
 package com.example.healthhub;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -120,7 +123,16 @@ public class MyProfileFragment extends Fragment {
                     textViewEmail.setText(email);
                     textViewDOB.setText(dob);
                     textViewGender.setText(gender);
+
+                    //Set User Profile Pic
+                    Uri uri =firebaseUser.getPhotoUrl();
+
+                    //ImageViewer setImagerURI() should not be used with regular URIs. So we use Picasso
+                    Picasso.get().load(uri).into(imageViewProfilePic);
+                }else{
+                    Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
                 }
+
                 progressBar.setVisibility(View.GONE);
             }
 
@@ -132,3 +144,4 @@ public class MyProfileFragment extends Fragment {
         });
     }
 }
+
