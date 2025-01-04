@@ -34,13 +34,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     private DatabaseReference articleRef;
 
-    public ArticleAdapter(Context context) {
-        this.context = context;
+    public ArticleAdapter(List<Article> articleList, Context context) {
         this.articleList = articleList;
+        this.context = context;  // Assign context for operations like image loading, etc.
         this.originalArticles = new ArrayList<>(articleList);
         this.filteredArticles = new ArrayList<>(articleList);
         this.articleRef = FirebaseDatabase.getInstance().getReference().child("articles");
     }
+
 
     // Fetch articles from Firebase Realtime Database
     private void fetchArticlesFromFirebase() {

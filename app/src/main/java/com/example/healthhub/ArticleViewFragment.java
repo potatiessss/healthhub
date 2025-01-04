@@ -74,7 +74,7 @@ public class ArticleViewFragment extends Fragment {
         // Setup search button click listener
         searchButtonView.setOnClickListener(v -> {
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new ArticleSearchFragment());
+            transaction.replace(R.id.emptyFragment, new ArticleSearchFragment());
             transaction.addToBackStack(null);
             transaction.commit();
         });
@@ -89,9 +89,9 @@ public class ArticleViewFragment extends Fragment {
             if (isSaved) {
                 savedButton.setImageResource(R.drawable.bookmark_filled); // Set filled icon
 
-                // Save article to Firebase
-                SavedArticle savedArticle = new SavedArticle(articleId, title, imageUrl);
-                savedArticlesReference.child(articleId).setValue(savedArticle);
+                // Save article to Firebase using the Article class
+                Article article = new Article(articleId, title, imageUrl);  // Use Article class here
+                savedArticlesReference.child(articleId).setValue(article);
             } else {
                 savedButton.setImageResource(R.drawable.bookmark); // Set unfilled icon
 

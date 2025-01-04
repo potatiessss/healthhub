@@ -45,7 +45,7 @@ public class ArticleSearchFragment extends Fragment {
 
         // Set up RecyclerView
         allArticles = new ArrayList<>();
-        articleAdapter = new ArticleAdapter(requireContext(), allArticles);
+        articleAdapter = new ArticleAdapter(allArticles, requireContext());
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         searchResultsRecyclerView.setAdapter(articleAdapter);
 

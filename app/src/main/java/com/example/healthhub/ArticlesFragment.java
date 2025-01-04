@@ -53,7 +53,7 @@ public class ArticlesFragment extends Fragment {
         // Set RecyclerView properties
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         articleList = new ArrayList<>();
-        adapter = new ArticleAdapter(getContext(), articleList);
+        adapter = new ArticleAdapter(articleList, getContext());
         recyclerView.setAdapter(adapter);
 
         // Initialize Firebase Database reference
