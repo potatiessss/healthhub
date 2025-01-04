@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login"
+    android:background = "@drawable/pharmacybg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+    <TextView
+        android:id="@+id/pharmacy_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/abril_fatface"
+        android:text="Pharmacy"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/deliverypromo"
+        android:layout_width="330dp"
+        android:layout_height="257dp"
+        android:src="@drawable/delivery"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="42dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="260dp"
+        android:layout_height="121dp"
+        android:src="@drawable/products_icon"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="272dp" />
+
+    <TextView
+        android:id="@+id/product_iconpharmacy3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Devices"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="268dp"
+        tools:layout_editor_absoluteY="364dp" />
+
+    <TextView
+        android:id="@+id/product_iconpharmacy1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medicine"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="364dp" />
+
+    <TextView
+        android:id="@+id/product_iconpharmacy2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lab Tests"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="364dp" />
+
+    <TextView
+        android:id="@+id/headline1pharmacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We Offer:"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="259dp" />
+
+    <ImageButton
+        android:id="@+id/popular_product3"
+        android:layout_width="151dp"
+        android:layout_height="187dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/popular_product3"
+        tools:layout_editor_absoluteX="256dp"
+        tools:layout_editor_absoluteY="428dp" />
+
+    <TextView
+        android:id="@+id/headline2pharmacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popular Products"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="416dp" />
+
+    <ImageButton
+        android:id="@+id/popular_product1"
+        android:layout_width="151dp"
+        android:layout_height="187dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:minWidth="100dp"
+        android:minHeight="120dp"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/popular_product1"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="428dp" />
+
+    <ImageButton
+        android:id="@+id/popular_product2"
+        android:layout_width="151dp"
+        android:layout_height="187dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/popular_product2"
+        tools:layout_editor_absoluteX="133dp"
+        tools:layout_editor_absoluteY="428dp" />
+
+    <TextView
+        android:id="@+id/headline2pharmacy2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="and many more..."
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="126dp"
+        tools:layout_editor_absoluteY="585dp" />
+
+    <ImageButton
+        android:id="@+id/viewmore_button"
+        android:layout_width="171dp"
+        android:layout_height="38dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:scaleType="fitCenter"
+        android:src="@drawable/viewmore"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="620dp" />
+
+    <ImageButton
+        android:id="@+id/hamburger_menu"
+        android:layout_width="122dp"
+        android:layout_height="21dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:scaleType="fitCenter"
+        android:src="@drawable/hamburger"
+        tools:layout_editor_absoluteX="-27dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <ImageButton
+        android:id="@+id/search_menu"
+        android:layout_width="122dp"
+        android:layout_height="21dp"
+        android:background="@null"
+        android:contentDescription="Button Image"
+        android:scaleType="fitCenter"
+        android:src="@drawable/search"
+        tools:layout_editor_absoluteX="310dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
