@@ -25,7 +25,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private ArticleAdapter articleAdapter;
+    private com.example.healthhub.adapter.ArticleAdapter articleAdapter;
     private List<Appointment> appointments = new ArrayList<>();
     private List<Article> articles = new ArrayList<>();
 

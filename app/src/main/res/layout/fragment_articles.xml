@@ -1,23 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ArticlesFragment"
-    android:id="@+id/Article">
+    android:background="@drawable/greenbackground">
 
-    <TextView
-        android:id="@+id/textView"
+    <!-- Toolbar Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Hamburger Button -->
+        <ImageButton
+            android:id="@+id/hamburger"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/hamburger"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Title TextView -->
+
+        <!-- Search Button -->
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="108dp"
+            android:fontFamily="@font/interfont"
+            android:text="Articles"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/searchButton"
+            app:layout_constraintHorizontal_bias="0.008"
+            app:layout_constraintStart_toEndOf="@id/hamburger"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.466" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Tabs Section -->
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBar"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <!-- Recent Tab -->
+        <TextView
+            android:id="@+id/tabRecent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/interfont"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Recent"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <!-- Saved Tab -->
+        <TextView
+            android:id="@+id/tabSaved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/interfont"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Saved"
+            android:textColor="#888"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- RecyclerView for Articles -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/articlesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabLayout"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ARTICLES"
-        android:textColor="@color/black"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerInParent="true"
+        android:visibility="gone" /> <!-- Initially hidden -->
+</RelativeLayout>

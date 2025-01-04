@@ -8,6 +8,8 @@
     <color name="darkgreen">#006400</color>
     <color name="baby_blue">#ADD8E6</color>
     <color name="backgroundColor">#ADD8E6</color> <!-- Example: white -->
-
+    <!-- Tab colors -->
+    <color name="activeTabColor">#A9A9A9</color> <!-- Replace with your actual active tab color -->
+    <color name="inactiveTabColor">#FFFFFF</color> <!-- Replace with your actual inactive tab color -->
 
 </resources>
