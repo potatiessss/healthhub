@@ -2,6 +2,7 @@ package com.example.healthhub;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,18 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 import java.util.List;
 
-
 public class HomeFragment extends Fragment {
-    private ArticleAdapter articleAdapter;
 
-    private Database db;
+    private ArticleAdapter articleAdapter;
+    private List<Appointment> appointments = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -30,9 +36,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        // Initialize the database
-        db = new Database(getContext(), "HealthHub.db", null, 1);
 
         // Navigation Buttons
         view.findViewById(R.id.btn_appointment_home).setOnClickListener(v ->
@@ -43,97 +46,68 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_home_to_articleFragment)
         );
 
-
-        // Appointment RecyclerView
+        // Appointments RecyclerView
         RecyclerView rvAppointments = view.findViewById(R.id.rv_appointments);
         rvAppointments.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        List<Appointment> appointments = db.getOrderData("current_user"); // Now returns List<Appointment>
-        AppointmentAdapter appointmentAdapter = new AppointmentAdapter(appointments, view);
-        rvAppointments.setAdapter(appointmentAdapter);
 
-        // Fetch and display the bottom 3 articles
+        // Fetch appointments from Firebase
+        fetchAppointmentsFromFirebase(rvAppointments);
+
+        // Articles RecyclerView
         RecyclerView rvArticles = view.findViewById(R.id.rv_articles);
         rvArticles.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Fetch latest 3 articles dynamically from the database
-        List<Article> articles = db.getLatestArticles(3);
-
-        // Set up the ArticleAdapter
-        ArticleAdapter articleAdapter = new ArticleAdapter(articles);
-        rvArticles.setAdapter(articleAdapter);
-
-        // Fetch and display the top 2 appointments
-        LinearLayout appointmentContainer = view.findViewById(R.id.appointment_container);
-        List<Appointment> appointmentList = db.getOrderData("current_user"); // Replace with actual username
-        int appointmentCount = Math.min(appointments.size(), 2); // Only show top 2 appointments
-        for (int i = 0; i < appointmentCount; i++) {
-            Appointment appointment = appointmentList.get(i);
-            addAppointmentCard(appointmentContainer, appointment);
-        }
-
-
-
-        // Fetch and display the bottom 3 articles
-        LinearLayout articleContainer = view.findViewById(R.id.article_container);
-        List<Article> articleList = db.getLatestArticles(3); // Fetch the latest 3 articles
-        for (Article article : articleList) {
-            addArticleCard(articleContainer, article, view);
-        }
+        // Fetch articles from Firebase
+        fetchArticlesFromFirebase(rvArticles);
 
         return view;
     }
 
-    private void addAppointmentCard(LinearLayout container, Appointment appointment) {
-        // Inflate the appointment card layout
-        View card = LayoutInflater.from(getContext()).inflate(R.layout.item_appointment_card, container, false);
+    private void fetchAppointmentsFromFirebase(RecyclerView rvAppointments) {
+        DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference("Appointments").child("current_user"); // Replace with actual user ID logic
 
-        // Find and populate views with Appointment data
-        TextView tvDoctorName = card.findViewById(R.id.tv_doctor_name);
-        TextView tvSpecialist = card.findViewById(R.id.tv_specialist);
-        TextView tvAppointmentTime = card.findViewById(R.id.tv_appointment_time);
+        appointmentsRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                appointments.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Appointment appointment = snapshot.getValue(Appointment.class);
+                    if (appointment != null) {
+                        appointments.add(appointment);
+                    }
+                }
+                AppointmentAdapter appointmentAdapter = new AppointmentAdapter(appointments, requireView());
+                rvAppointments.setAdapter(appointmentAdapter);
+            }
 
-        tvDoctorName.setText(appointment.getDoctorName());
-        tvSpecialist.setText(appointment.getSpecialist());
-        tvAppointmentTime.setText(appointment.getAppointmentTime());
-
-        // Add the card to the container
-        container.addView(card);
-    }
-
-
-    private void addArticleCard(LinearLayout container, Article article, View parentView) {
-        View card = LayoutInflater.from(getContext()).inflate(R.layout.item_article_card, container, false);
-
-        ImageView imgArticle = card.findViewById(R.id.img_article);
-        TextView tvArticleTitle = card.findViewById(R.id.tv_article_title);
-
-        imgArticle.setImageResource(article.getImage()); // Assuming image is a drawable resource ID
-        tvArticleTitle.setText(article.getTitle());
-
-        // Click listener for the article title
-        tvArticleTitle.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt("articleId", article.getId());
-            Navigation.findNavController(parentView).navigate(R.id.action_home_to_articleFragment, bundle);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error
+            }
         });
-
-        container.addView(card);
     }
 
-    private void refreshArticles() {
-        // Fetch updated articles from the database
-        List<Article> updatedArticles = db.getLatestArticles(3);
+    private void fetchArticlesFromFirebase(RecyclerView rvArticles) {
+        DatabaseReference articlesRef = FirebaseDatabase.getInstance().getReference("Articles");
 
-        // Update the adapter with the new data
-        articleAdapter.updateArticles(updatedArticles);
+        articlesRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                articles.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Article article = snapshot.getValue(Article.class);
+                    if (article != null) {
+                        articles.add(article);
+                    }
+                }
+                articleAdapter = new ArticleAdapter(articles);
+                rvArticles.setAdapter(articleAdapter);
+            }
 
-        // Notify the adapter that the data set has changed
-        articleAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refreshArticles();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error
+            }
+        });
     }
 }

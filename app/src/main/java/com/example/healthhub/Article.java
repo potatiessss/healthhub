@@ -1,25 +1,40 @@
 package com.example.healthhub;
 
 public class Article {
-    private int id;
-    private String title;
-    private int image; // Assuming image is stored as a resource ID
+    private String articleId;  // The unique ID of the article
+    private String title;      // Title of the article
+    private String articleImage;  // Image URL for the article
 
-    public Article(int id, String title, int image) {
-        this.id = id;
-        this.title = title;
-        this.image = image;
+    public Article() {
     }
 
-    public int getId() {
-        return id;
+    public Article(String articleId, String title, String articleImage) {
+        this.articleId = articleId;
+        this.title = title;
+        this.articleImage = articleImage;
+    }
+
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public int getImage() {
-        return image;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getArticleImage() {
+        return articleImage;
+    }
+
+    public void setArticleImage(String articleImage) {
+        this.articleImage = articleImage;
     }
 }

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
@@ -30,12 +32,27 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         Article article = articles.get(position);
         holder.tvTitle.setText(article.getTitle());
-        holder.imgArticle.setImageResource(article.getImage());
+
+        // Load image using Picasso or Glide
+        if (article.getArticleImage() != null && !article.getArticleImage().isEmpty()) {
+            Picasso.get()
+                    .load(article.getArticleImage())
+                    .placeholder(R.drawable.placeholder_image) // Replace with a drawable resource for a placeholder
+                    .error(R.drawable.error_image) // Replace with a drawable resource for error
+                    .into(holder.imgArticle);
+        } else {
+            holder.imgArticle.setImageResource(R.drawable.placeholder_image);
+        }
     }
 
     @Override
     public int getItemCount() {
         return articles.size();
+    }
+
+    public void updateArticles(List<Article> updatedArticles) {
+        this.articles = updatedArticles;
+        notifyDataSetChanged(); // Notify the adapter that the dataset has changed
     }
 
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
@@ -48,9 +65,4 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             imgArticle = itemView.findViewById(R.id.img_article);
         }
     }
-    public void updateArticles(List<Article> updatedArticles) {
-        this.articles = updatedArticles;
-    }
-
-
 }

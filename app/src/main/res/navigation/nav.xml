@@ -31,8 +31,8 @@
         android:label="fragment_appointment"
         tools:layout="@layout/fragment_appointment" >
         <action
-            android:id="@+id/action_Appointment_to_doctorSearchFragment"
-            app:destination="@id/doctorSearchFragment" />
+            android:id="@+id/action_Appointment_to_doctorSearch"
+            app:destination="@id/doctorSearch" />
     </fragment>
     <fragment
         android:id="@+id/Article"
@@ -58,23 +58,15 @@
         android:name="com.example.healthhub.MyAppointmentFragment"
         android:label="MyAppointmentFragment" />
     <fragment
-        android:id="@+id/doctorSearchFragment"
-        android:name="com.example.healthhub.DoctorSearchFragment"
-        android:label="DoctorSearchFragment" >
-        <action
-            android:id="@+id/action_doctorSearchFragment_to_doctorDetailsFragment"
-            app:destination="@id/doctorDetailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/doctorDetailsFragment"
         android:name="com.example.healthhub.DoctorDetailsFragment"
-        android:label="DoctorDetailsFragment" />
+        android:label="fragment_doctor_details" />
     <fragment
-        android:id="@+id/doctorListFragment"
-        android:name="com.example.healthhub.DoctorListFragment"
-        android:label="DoctorListFragment" >
+        android:id="@+id/doctorSearch"
+        android:name="com.example.healthhub.DoctorSearch"
+        android:label="fragment_doctor_search">
         <action
-            android:id="@+id/action_doctorListFragment_to_doctorDetailsFragment"
+            android:id="@+id/action_doctorSearch_to_doctorDetailsFragment"
             app:destination="@id/doctorDetailsFragment" />
     </fragment>
 </navigation>

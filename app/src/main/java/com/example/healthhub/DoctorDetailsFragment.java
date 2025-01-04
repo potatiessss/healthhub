@@ -1,12 +1,21 @@
 package com.example.healthhub;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class DoctorDetailsFragment extends Fragment {
 
@@ -14,40 +23,43 @@ public class DoctorDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_doctor_details, container, false);
 
-        // Initialize components
         ImageView imgDoctorProfile = view.findViewById(R.id.img_doctor_profile);
         TextView tvDoctorName = view.findViewById(R.id.tv_doctor_name);
         TextView tvSpecialization = view.findViewById(R.id.tv_doctor_specialization);
-        TextView tvRating = view.findViewById(R.id.tv_doctor_rating);
-        TextView tvPatients = view.findViewById(R.id.tv_patients);
-        TextView tvAwards = view.findViewById(R.id.tv_awards);
         TextView tvExperience = view.findViewById(R.id.tv_experience);
         TextView tvAboutDoctor = view.findViewById(R.id.tv_about_doctor);
-        TextView tvWorkingTime = view.findViewById(R.id.tv_working_time);
 
-        // Retrieve doctorId from arguments
-        Bundle args = getArguments();
-        if (args != null) {
-            int doctorId = args.getInt("doctorId", -1);
+        String doctorId = getArguments() != null ? getArguments().getString("doctorId") : null;
 
-            // Fetch doctor details from database (example logic)
-            Database database = new Database(requireContext(), "HealthHub.db", null, 1);
-            Doctor doctor = database.getDoctorById(doctorId);
+        if (doctorId != null) {
+            DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference("Doctors").child(doctorId);
 
-            if (doctor != null) {
-                tvDoctorName.setText(doctor.getName());
-                tvSpecialization.setText(doctor.getField());
-                tvRating.setText("⭐ 4.5 (50 reviews)"); // Placeholder value
-                tvPatients.setText("129"); // Placeholder value
-                tvAwards.setText(String.valueOf(doctor.getAwards()));
-                tvExperience.setText(String.format("%d years", doctor.getExperience()));
-                tvAboutDoctor.setText(doctor.getAbout());
-                tvWorkingTime.setText(doctor.getWorkingTime());
+            doctorRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Doctor doctor = snapshot.getValue(Doctor.class);
+                    if (doctor != null) {
+                        tvDoctorName.setText(doctor.getDrName());
+                        tvSpecialization.setText(doctor.getField());
+                        tvExperience.setText(String.format("%d years", doctor.getExp()));
+                        tvAboutDoctor.setText(doctor.getAbout());
 
-                imgDoctorProfile.setImageResource(doctor.getProfilePic()); // Assuming profilePic is a drawable resource ID
-            }
+                        Picasso.get()
+                                .load(doctor.getDrImage())
+                                .placeholder(R.drawable.placeholder_image)
+                                .error(R.drawable.error_image)
+                                .into(imgDoctorProfile);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("DoctorDetails", "Error fetching doctor details: " + error.getMessage());
+                }
+            });
         }
 
         return view;
     }
 }
+

@@ -14,15 +14,12 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.healthhub.Doctor;
 import com.example.healthhub.R;
-import com.example.healthhub.models.Doctor;
-import com.example.healthhub.models.Doctor_Firebase;
+import com.example.healthhub.Doctor_Firebase;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -121,6 +118,11 @@ public class AppointmentTester extends Fragment {
             }
 
             @Override
+            public void onNoDataFound() {
+
+            }
+
+            @Override
             public void onDataFetchFailed(Exception exception) {
                 Log.e(TAG, "Error fetching doctors: " + exception.getMessage());
             }
@@ -170,5 +172,8 @@ public class AppointmentTester extends Fragment {
                     Log.e(TAG, "Failed to add appointment ID to doctor: " + e.getMessage());
                 });
     }
+
+
+
 
 }

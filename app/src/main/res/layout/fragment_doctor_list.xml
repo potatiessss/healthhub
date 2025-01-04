@@ -1,11 +1,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/backgroundColor">
     <!--  Search Bar  -->
     <LinearLayout android:id="@+id/search_bar" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="8dp" android:background="@color/white" android:elevation="4dp" android:layout_margin="8dp">
-        <EditText android:id="@+id/et_search_doctor" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="Search doctor" android:padding="8dp" android:background="@drawable/rounded_border" android:drawableStart="@drawable/ic_search" android:drawablePadding="8dp" android:imeOptions="actionSearch" android:inputType="text"/>
-        <ImageButton android:id="@+id/btn_camera_search" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/baseline_camera_alt_24" android:background="?attr/selectableItemBackground" android:contentDescription="Camera Search" android:layout_marginStart="8dp"/>
-        <ImageButton android:id="@+id/btn_search_icon" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_search" android:background="?attr/selectableItemBackground" android:contentDescription="Search"/>
+
+        <EditText
+            android:id="@+id/et_search_doctor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_border"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="8dp"
+            android:hint="Search doctor"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="8dp" />
+
+        <ImageButton
+            android:id="@+id/btn_camera_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Camera Search"
+            android:src="@drawable/baseline_camera_alt_24" />
+
+        <ImageButton
+            android:id="@+id/btn_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Search"
+            android:src="@drawable/ic_search" />
     </LinearLayout>
     <!--  Search Results  -->
     <TextView android:id="@+id/tv_top_results" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/search_bar" android:layout_marginTop="16dp" android:layout_marginStart="16dp" android:text="Top results" android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/black"/>
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_search_results" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/tv_top_results" android:layout_marginTop="-105dp" android:padding="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_top_results"
+        android:layout_marginTop="26dp"
+        android:padding="16dp" />
 </RelativeLayout>

@@ -1,8 +1,5 @@
 package com.example.healthhub;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder> {
@@ -42,10 +48,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.ivDoctor.setImageResource(appointment.getDoctorImage());
     }
 
-
     @Override
     public int getItemCount() {
-        return Integer.MAX_VALUE; // Infinite cycle
+        return appointments.size();
     }
 
     public static class AppointmentViewHolder extends RecyclerView.ViewHolder {
@@ -58,25 +63,54 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             tvSpecialist = itemView.findViewById(R.id.tv_specialist);
             tvAppointmentTime = itemView.findViewById(R.id.tv_appointment_time);
             ivDoctor = itemView.findViewById(R.id.img_doctor_profile);
+
         }
     }
+
     public void updateData(List<Appointment> newAppointments) {
         this.appointments = newAppointments;
-        notifyDataSetChanged(); // Notify the RecyclerView to rebind the views
+        notifyDataSetChanged();
     }
 
-    private void loadAppointments(View view, Context context, Database database) {
+    // Load appointments dynamically from Firebase
+    public static void loadAppointments(View view, Context context) {
         RecyclerView recyclerView = view.findViewById(R.id.rv_appointments);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        AppointmentAdapter adapter = new AppointmentAdapter(database.getOrderData("current_user"), view);
-        recyclerView.setAdapter(adapter);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            String userId = firebaseUser.getUid();
+
+            DatabaseReference appointmentsRef = FirebaseDatabase.getInstance()
+                    .getReference("Appointments")
+                    .child(userId);
+
+            appointmentsRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<Appointment> appointments = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Appointment appointment = snapshot.getValue(Appointment.class);
+                        if (appointment != null) {
+                            appointments.add(appointment);
+                        }
+                    }
+                    AppointmentAdapter adapter = new AppointmentAdapter(appointments, view);
+                    recyclerView.setAdapter(adapter);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle database error
+                }
+            });
+        } else {
+            // Handle case when no user is logged in (e.g., redirect to login screen)
+        }
     }
 
-
-
-
-
-
-
 }
+
 
