@@ -40,7 +40,7 @@ public class UpdateProfile extends AppCompatActivity {
     String textFName, textDOB, textGender;
     FirebaseAuth authProfile;
     ProgressBar progressBar;
-    TextView changeEmail, uploadPic, changePassword;
+    TextView uploadPic, changePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +59,7 @@ public class UpdateProfile extends AppCompatActivity {
             }
         });
 
-        // Change Email TV
-        changeEmail = findViewById(R.id.TV_updateEmail);
-        changeEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(UpdateProfile.this, "You can change your email now.", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(UpdateProfile.this, ChangeEmail.class));
-            }
-        });
+
 
         // Change Password TV
         changePassword = findViewById(R.id.TV_changePW); // Correct assignment
