@@ -1,4 +1,4 @@
-package com.example.healthhub.models;
+package com.example.healthhub;
 
 public class Doctor {
     private String doctorId; // Unique ID for the doctor
@@ -9,15 +9,17 @@ public class Doctor {
     private String drImage; // URL or path to the doctor's image
     private String drPhone; // Doctor's phone number
     private int exp; // Experience of the doctor
-    private double fee; // Consultation fee
+    private int fee; // Consultation fee
     private String field; // Medical field or specialization
     private String workingTime; // Working hours of the doctor
 
     // Default constructor required for Firebase
-    public Doctor() {}
+    public Doctor() {
+    }
 
     // Constructor to initialize all fields
-    public Doctor(String doctorId, String about, int awards, String drName, String drAddress, String drImage, String drPhone, int exp, double fee, String field, String workingTime) {
+    public Doctor(String doctorId, String about, int awards, String drName, String drAddress, String drImage,
+                  String drPhone, int exp, int fee, String field, String workingTime) {
         this.doctorId = doctorId;
         this.about = about;
         this.awards = awards;
@@ -31,7 +33,7 @@ public class Doctor {
         this.workingTime = workingTime;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public String getDoctorId() {
         return doctorId;
     }
@@ -100,7 +102,7 @@ public class Doctor {
         return fee;
     }
 
-    public void setFee(double fee) {
+    public void setFee(int fee) {
         this.fee = fee;
     }
 

@@ -12,8 +12,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.healthhub.R;
-import com.example.healthhub.models.Article;
-import com.example.healthhub.models.Article_Firebase;
+import com.example.healthhub.Article;
+import com.example.healthhub.Article_Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 

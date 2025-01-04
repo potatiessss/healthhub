@@ -1,24 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeFragment"
-    android:id="@+id/Home">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/baby_blue" android:padding="16dp">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <!--  My Appointments Section  -->
+        <TextView android:id="@+id/tv_my_appointments" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="My Appointments" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="8dp"/>
+        <!--  Horizontal RecyclerView for Appointments  -->
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_appointments" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingBottom="16dp" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" android:scrollbars="none"/>
 
+        <!--  Appointments Container -->
+        <LinearLayout android:id="@+id/appointment_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="8dp"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HOME"
-        android:textColor="@color/black"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!--  Services Section  -->
+        <TextView android:id="@+id/tv_services" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Services" android:textSize="18sp" android:textStyle="bold" android:paddingTop="16dp" android:paddingBottom="8dp"/>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:paddingTop="8dp">
+            <LinearLayout android:orientation="vertical" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center">
+                <ImageView android:id="@+id/img_calendar" android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/calendar" android:contentDescription="Calendar Image"/>
+                <Button android:id="@+id/btn_appointment_home" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Appointment" android:textSize="16sp" android:textStyle="bold" android:paddingTop="8dp"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center">
+                <ImageView android:id="@+id/img_pharmacy" android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/pharmacy" android:contentDescription="Pharmacy Image"/>
+                <Button android:id="@+id/btn_pharmacy_home" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pharmacy" android:textSize="16sp" android:textStyle="bold" android:paddingTop="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--  Popular Articles Section  -->
+        <TextView android:id="@+id/tv_popular_articles" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Popular Articles" android:textSize="18sp" android:textStyle="bold" android:paddingTop="16dp" android:paddingBottom="8dp"/>
+        <!--  Horizontal RecyclerView for Articles  -->
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_articles" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:scrollbars="none" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <!--  Articles Container -->
+        <LinearLayout android:id="@+id/article_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="8dp"/>
+    </LinearLayout>
+</ScrollView>

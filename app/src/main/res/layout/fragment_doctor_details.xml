@@ -1,14 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DoctorDetailsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/baby_blue" android:padding="16dp">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:background="@drawable/rounded_background" android:layout_margin="16dp" android:elevation="4dp" android:clipToPadding="false">
+        <!--  Doctor Image and Name  -->
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:paddingBottom="24dp">
+            <ImageView android:id="@+id/img_doctor_profile" android:layout_width="100dp" android:layout_height="100dp" android:src="@drawable/matthew" android:contentDescription="Doctor Profile Picture" android:layout_marginBottom="16dp" android:scaleType="centerCrop" android:background="@drawable/rounded_background" android:padding="4dp"/>
+            <TextView android:id="@+id/tv_doctor_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dr. Mohamad Hazim bin MD Hanif" android:textSize="20sp" android:textStyle="bold" android:gravity="center"/>
+            <TextView android:id="@+id/tv_doctor_specialization" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Neurologist" android:textSize="16sp" android:textColor="@android:color/darker_gray" android:gravity="center" android:layout_marginTop="8dp"/>
+            <TextView android:id="@+id/tv_doctor_rating" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⭐ 5.0 (50 reviews)" android:textSize="14sp" android:gravity="center" android:layout_marginTop="4dp"/>
+        </LinearLayout>
+        <!--  Contact Icons  -->
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:paddingBottom="16dp">
+            <ImageButton android:id="@+id/btn_call" android:layout_width="56dp" android:layout_height="56dp" android:src="@drawable/callicon" android:background="?attr/selectableItemBackground" android:contentDescription="Call Doctor" android:layout_marginEnd="16dp"/>
+            <ImageButton android:id="@+id/btn_message" android:layout_width="56dp" android:layout_height="56dp" android:src="@drawable/msgicon" android:background="?attr/selectableItemBackground" android:contentDescription="Message Doctor" android:layout_marginEnd="16dp"/>
+            <ImageButton android:id="@+id/btn_share" android:layout_width="56dp" android:layout_height="56dp" android:src="@drawable/shareicon" android:background="?attr/selectableItemBackground" android:contentDescription="Share Doctor Info"/>
+        </LinearLayout>
+        <!--  Doctor Stats  -->
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="3" android:gravity="center" android:paddingBottom="24dp">
+            <LinearLayout android:orientation="vertical" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center">
+                <TextView android:id="@+id/tv_patients" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="129" android:textSize="16sp" android:textStyle="bold" android:gravity="center"/>
+                <TextView android:id="@+id/tv_patients_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Patients" android:textSize="14sp" android:textColor="@android:color/darker_gray" android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center">
+                <TextView android:id="@+id/tv_awards" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="4" android:textSize="16sp" android:textStyle="bold" android:gravity="center"/>
+                <TextView android:id="@+id/tv_awards_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Awards" android:textSize="14sp" android:textColor="@android:color/darker_gray" android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center">
+                <TextView android:id="@+id/tv_experience" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="24 years" android:textSize="16sp" android:textStyle="bold" android:gravity="center"/>
+                <TextView android:id="@+id/tv_experience_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Experience" android:textSize="14sp" android:textColor="@android:color/darker_gray" android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!--  About Doctor  -->
+        <TextView android:id="@+id/tv_about_doctor_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="About doctor" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="8dp"/>
+        <TextView android:id="@+id/tv_about_doctor" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="• Studied at Universiti Malaya, graduated in 2000\n• Lead for neurology department" android:textSize="14sp" android:textColor="@android:color/darker_gray" android:paddingBottom="16dp"/>
+        <!--  Working Time  -->
+        <TextView android:id="@+id/tv_working_time_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Working time" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="8dp"/>
+        <TextView android:id="@+id/tv_working_time" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Monday - Saturday, 8:00 am - 8:00 pm" android:textSize="14sp" android:textColor="@android:color/darker_gray"/>
+        <TextView android:id="@+id/tv_Fees" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fees" android:textSize="18sp" android:textStyle="bold" android:paddingBottom="8dp"/>
+        <TextView android:id="@+id/tv_doctor_fees" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="RM 300" android:textSize="14sp" android:textColor="@android:color/darker_gray"/>
+    </LinearLayout>
+</ScrollView>

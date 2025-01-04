@@ -1,6 +1,7 @@
-package com.example.healthhub.models;
+package com.example.healthhub;
 
 import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +19,7 @@ public class Doctor_Firebase {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference doctorsRef = database.getReference("Doctors");
 
-        doctorsRef.addValueEventListener(new ValueEventListener() {
+        doctorsRef.addListenerForSingleValueEvent(new ValueEventListener() { // Use single fetch for non-real-time
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists() && dataSnapshot.hasChildren()) {
@@ -40,7 +41,7 @@ public class Doctor_Firebase {
                     callback.onDataFetched(doctors);
                 } else {
                     Log.w(TAG, "No doctors found in Firebase");
-                    callback.onDataFetched(new ArrayList<>());
+                    callback.onNoDataFound(); // Notify no data
                 }
             }
 
@@ -54,6 +55,7 @@ public class Doctor_Firebase {
 
     public interface DoctorDataCallback {
         void onDataFetched(List<Doctor> doctors);
+        void onNoDataFound(); // Notify explicitly if no data
         void onDataFetchFailed(Exception exception);
     }
 }
