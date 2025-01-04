@@ -1,17 +1,24 @@
 package com.example.healthhub.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentActivity;
+
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.healthhub.ArticleViewFragment;
 import com.example.healthhub.R;
 import com.example.healthhub.Article;
 import com.google.firebase.database.DatabaseReference;
@@ -101,7 +108,20 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             if (listener != null) {
                 listener.onItemClick(article);
             }
+        });// Set the click listener for the CardView
+        holder.cardView.setOnClickListener(v -> {
+            FragmentTransaction transaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+            ArticleViewFragment fragment = ArticleViewFragment.newInstance(
+                    article.getArticleId(),
+                    article.getTitle(),
+                    article.getArticleImage()
+            );
+            transaction.replace(R.id.emptyFragment, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
+
+
     }
 
 
@@ -110,36 +130,33 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         return filteredArticles.size();
     }
 
+    // Filter method for search functionality
+    public void filterArticles(String query) {
+        filteredArticles.clear();
+        if (query.isEmpty()) {
+            filteredArticles.addAll(articleList); // If no query, show all articles
+        } else {
+            for (Article article : articleList) {
+                if (article.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                    filteredArticles.add(article); // Add article if it matches query
+                }
+            }
+        }
+        notifyDataSetChanged(); // Notify RecyclerView to update
+    }
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         ImageView image;
         ImageButton savedButton;
+        CardView cardView;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.articleTitleTV);
             image = itemView.findViewById(R.id.articleImage);
             savedButton = itemView.findViewById(R.id.bookmarkButton);
+            cardView = itemView.findViewById(R.id.articleCardView);
         }
-    }
-
-    public void filterList(String query) {
-        filteredArticles.clear();
-        if (query.isEmpty()) {
-            filteredArticles.addAll(originalArticles);
-        } else {
-            for (Article article : originalArticles) {
-                if (article.getTitle().toLowerCase().contains(query.toLowerCase())) {
-                    filteredArticles.add(article);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    public void updateList(List<Article> newList) {
-        this.articleList = newList;
-        notifyDataSetChanged();
     }
 
 }

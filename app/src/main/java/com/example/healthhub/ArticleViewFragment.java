@@ -40,7 +40,6 @@ public class ArticleViewFragment extends Fragment {
         return fragment;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,20 +61,20 @@ public class ArticleViewFragment extends Fragment {
             String title = getArguments().getString(ARG_TITLE);
             String imageUrl = getArguments().getString(ARG_IMAGE_URL);
 
-            articleTitle.setText(title);
-            loadImageWithPicasso(imageUrl, articleImage);
+            articleTitle.setText(title); // Update title
+            loadImageWithPicasso(imageUrl, articleImage); // Update image
 
             setupSaveButton(articleId, title, imageUrl);
         }
 
         // Setup back button click listener
-        backButton.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
+        backButton.setOnClickListener(v -> requireActivity().onBackPressed()); // This triggers the back press
 
         // Setup search button click listener
         searchButtonView.setOnClickListener(v -> {
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.emptyFragment, new ArticleSearchFragment());
-            transaction.addToBackStack(null);
+            transaction.replace(R.id.emptyFragment, new ArticleSearchFragment()); // Ensure emptyFragment is correct
+            transaction.addToBackStack(null); // Add the transaction to the back stack
             transaction.commit();
         });
 
