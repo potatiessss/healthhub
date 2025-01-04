@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MyAppointmentFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/baby_blue" android:padding="16dp">
+    <!--  Tabs for Upcoming and Past  -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center" android:paddingBottom="16dp">
+        <Button android:id="@+id/btn_upcoming" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Upcoming" android:background="@drawable/tab_active" android:textColor="@android:color/white" android:textStyle="bold"/>
+        <Button android:id="@+id/btn_past" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Past" android:background="@drawable/tab_inactive" android:textColor="@android:color/darker_gray"/>
+    </LinearLayout>
+    <!--  RecyclerView for Appointment List  -->
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_appointments" android:layout_width="match_parent" android:layout_height="match_parent" android:clipToPadding="false" android:paddingBottom="16dp"/>
+</LinearLayout>

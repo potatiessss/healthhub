@@ -8,6 +8,7 @@
     tools:context=".UpdateProfile"
     android:background="@color/white">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,24 +118,13 @@
                 android:textColor="@color/green"
                 />
 
-            <TextView
-                android:id="@+id/TV_updateEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/TV_uploadProfilepic"
-                android:textStyle="italic"
-                android:layout_marginTop="2dp"
-                android:padding="4dp"
-                android:text="Change email?"
-                android:textSize="15sp"
-                android:textColor="@color/green"
-                />
+
 
             <TextView
                 android:id="@+id/TV_changePW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/TV_updateEmail"
+                android:layout_below="@+id/TV_uploadProfilepic"
                 android:layout_marginTop="2dp"
                 android:padding="4dp"
                 android:text="Change password?"

@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ChangeEmail extends AppCompatActivity {
+
     FirebaseAuth authProfile;
     FirebaseUser firebaseUser;
     ProgressBar progress_Bar;

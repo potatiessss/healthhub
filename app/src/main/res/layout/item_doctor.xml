@@ -1,0 +1,14 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="8dp" app:cardCornerRadius="8dp" app:cardElevation="4dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="16dp">
+        <!--  Doctor Profile Picture  -->
+        <ImageView android:id="@+id/img_doctor" android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/matthew" android:contentDescription="Doctor Profile Picture" android:layout_marginEnd="16dp" android:scaleType="centerCrop"/>
+        <!--  Doctor Details  -->
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/tv_doctor_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dr. Matthew" android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/black"/>
+            <TextView android:id="@+id/tv_field" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Neurologist" android:textSize="14sp" android:textColor="@android:color/darker_gray"/>
+            <TextView android:id="@+id/tv_experience" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="24 years experience" android:textSize="14sp" android:textColor="@android:color/darker_gray"/>
+            <TextView android:id="@+id/tv_consultation_fee" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="RM 300.00" android:textSize="14sp" android:textColor="@android:color/darker_gray"/>
+            <TextView android:id="@+id/tv_working_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8:00 AM - 8:00 PM" android:textSize="14sp" android:textColor="@android:color/darker_gray"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
