@@ -54,7 +54,6 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
     implementation(libs.glide)
-    implementation(libs.glide.compiler)
     implementation(libs.drawerlayout)
     implementation(libs.navigationview)
     testImplementation(libs.junit)

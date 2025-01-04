@@ -66,7 +66,6 @@ public class CartFragment extends Fragment {
             if (productList.isEmpty()) {
                 Toast.makeText(getContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
             } else {
-                proceedToCheckout();
             }
         });
 
