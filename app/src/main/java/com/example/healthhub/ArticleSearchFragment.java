@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,6 +29,7 @@ public class ArticleSearchFragment extends Fragment {
     private EditText searchBar;
     private ImageButton searchButton, backButtonSearch;
     private RecyclerView searchResultsRecyclerView;
+    private TextView noResultsText; // TextView for no results
     private ArticleAdapter articleAdapter;
     private List<Article> allArticles;
     private DatabaseReference databaseReference;
@@ -42,21 +44,21 @@ public class ArticleSearchFragment extends Fragment {
         searchButton = rootView.findViewById(R.id.searchButton);
         backButtonSearch = rootView.findViewById(R.id.backButtonSearch);
         searchResultsRecyclerView = rootView.findViewById(R.id.searchResultsRecyclerView);
+        noResultsText = rootView.findViewById(R.id.noResultsText); // Initialize TextView
 
         // Set up RecyclerView
         allArticles = new ArrayList<>();
-        articleAdapter = new ArticleAdapter(requireContext(), allArticles);
+        articleAdapter = new ArticleAdapter(allArticles, requireContext());
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         searchResultsRecyclerView.setAdapter(articleAdapter);
 
-        // Initialize Firebase database reference
+        // Initialize Firebase
         databaseReference = FirebaseDatabase.getInstance().getReference("articles");
-
-        // Fetch all articles from Firebase
         fetchArticlesFromFirebase();
 
-        // Set up the search functionality
-        setupSearchFunctionality();
+
+        // Set up search bar listener
+        setupSearch();
 
         // Back button click listener
         backButtonSearch.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
@@ -85,8 +87,7 @@ public class ArticleSearchFragment extends Fragment {
         });
     }
 
-    private void setupSearchFunctionality() {
-        // TextWatcher for live search functionality
+    private void setupSearch() {
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -99,21 +100,29 @@ public class ArticleSearchFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
-        // Optional: Set up click listener for manual search if needed
-        searchButton.setOnClickListener(v -> {
-            String query = searchBar.getText().toString();
-            filterArticles(query);
-        });
     }
 
+    // Filter articles based on search query
     private void filterArticles(String query) {
-        List<Article> filteredList = new ArrayList<>();
-        for (Article article : allArticles) {
-            if (article.getTitle().toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(article);
-            }
+        articleAdapter.filterArticles(query);
+
+        // Show or hide "No Results" message
+        if (allArticles.isEmpty() || articleAdapter.getItemCount() == 0) {
+            noResultsText.setVisibility(View.VISIBLE);
+        } else {
+            noResultsText.setVisibility(View.GONE);
         }
-        articleAdapter.updateList(filteredList); // Ensure your adapter has an updateList method
+
+
+        // Manual search button (optional if you want an explicit search action)
+        /*searchButton.setOnClickListener(v -> {
+            String query = searchBar.getText().toString().toLowerCase(); // Normalize input
+            articleAdapter.filterArticles(query);
+        });
+
+         */
+
+
     }
+
 }

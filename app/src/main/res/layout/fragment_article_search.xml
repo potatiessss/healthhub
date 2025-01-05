@@ -75,6 +75,17 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/noResultsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No articles found"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
