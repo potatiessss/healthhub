@@ -1,4 +1,4 @@
-package com.example.healthhub;
+package com.example.healthhub.models;
 
 import android.util.Log;
 

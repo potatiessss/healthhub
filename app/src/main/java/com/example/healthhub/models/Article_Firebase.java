@@ -1,7 +1,6 @@
-package com.example.healthhub;
+package com.example.healthhub.models;
 
 import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,22 +10,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+// Centralized class to retrieve Articles from Firebase
 public class Article_Firebase {
 
     private static final String TAG = "Article_Firebase";
-    private static final String ARTICLES_PATH = "Articles";
-    private static final String USERS_PATH = "Registered Users";
 
     // Fetch all articles from Firebase
     public static void fetchArticlesFromFirebase(ArticleDataCallback callback) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference articlesRef = database.getReference(ARTICLES_PATH);
+        DatabaseReference articlesRef = database.getReference("Articles");
 
-        articlesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        articlesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Article> articles = new ArrayList<>();
                 if (dataSnapshot.exists() && dataSnapshot.hasChildren()) {
+                    List<Article> articles = new ArrayList<>();
                     for (DataSnapshot articleSnapshot : dataSnapshot.getChildren()) {
                         try {
                             Article article = articleSnapshot.getValue(Article.class);
@@ -37,52 +35,46 @@ public class Article_Firebase {
                             Log.e(TAG, "Error parsing article data: ", e);
                         }
                     }
+
+                    callback.onDataFetched(articles);
+                } else {
+                    Log.w(TAG, "No articles found in Firebase");
+                    callback.onDataFetched(new ArrayList<>());
                 }
-                callback.onDataFetched(articles);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "Error fetching articles: " + databaseError.getMessage(), databaseError.toException());
+                Log.e(TAG, "Error fetching articles: " + databaseError.getMessage());
                 callback.onDataFetchFailed(databaseError.toException());
             }
         });
     }
 
-    // Save an article to a user's savedArticles in Firebase
+    // Save an article to a user's savedArticles in Firebase using the existing articleID
     public static void saveArticleToFirebase(String userId, String articleId, Article article) {
-        if (userId == null || articleId == null || article == null) {
-            Log.e(TAG, "Invalid arguments for saving article");
-            return;
-        }
-
-        DatabaseReference userSavedArticlesRef = FirebaseDatabase.getInstance()
-                .getReference(USERS_PATH).child(userId).child("savedArticles");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userSavedArticlesRef = database.getReference("Registered Users").child(userId).child("savedArticles");
 
         userSavedArticlesRef.child(articleId).setValue(article).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Log.d(TAG, "Article saved successfully for user: " + userId);
+                Log.d(TAG, "Article saved successfully");
             } else {
-                Log.e(TAG, "Error saving article for user: " + userId, task.getException());
+                Log.e(TAG, "Error saving article");
             }
         });
     }
 
     // Unsave an article from a user's savedArticles
     public static void unsaveArticleFromFirebase(String userId, String articleId) {
-        if (userId == null || articleId == null) {
-            Log.e(TAG, "Invalid arguments for unsaving article");
-            return;
-        }
-
-        DatabaseReference userSavedArticlesRef = FirebaseDatabase.getInstance()
-                .getReference(USERS_PATH).child(userId).child("savedArticles").child(articleId);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userSavedArticlesRef = database.getReference("Registered Users").child(userId).child("savedArticles").child(articleId);
 
         userSavedArticlesRef.removeValue().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Log.d(TAG, "Article unsaved successfully for user: " + userId);
+                Log.d(TAG, "Article unsaved successfully");
             } else {
-                Log.e(TAG, "Error unsaving article for user: " + userId, task.getException());
+                Log.e(TAG, "Error unsaving article");
             }
         });
     }

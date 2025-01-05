@@ -1,4 +1,4 @@
-package com.example.healthhub;
+package com.example.healthhub.models;
 
 public class Doctor {
     private String doctorId; // Unique ID for the doctor
