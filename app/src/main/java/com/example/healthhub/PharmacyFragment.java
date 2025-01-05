@@ -99,6 +99,23 @@ public class PharmacyFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FragmentsContainer activity = (FragmentsContainer) requireActivity();
+        activity.updateToolbar(
+                "PHARMACY", // Title
+                R.drawable.hamburger, // Left Icon
+                R.drawable.search, // Right Icon
+                v -> {
+                    // Handle left icon click (e.g., open a drawer)
+                },
+                v -> {
+                    // Handle right icon click (e.g., show notifications)
+                }
+        );
+    }
     private void navigateToMLTDetails(Product product) {
         Bundle bundle = new Bundle();
         bundle.putString("name", product.getName());

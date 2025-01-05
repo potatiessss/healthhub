@@ -76,6 +76,23 @@ public class ArticlesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FragmentsContainer activity = (FragmentsContainer) requireActivity();
+        activity.updateToolbar(
+                "ARTICLES", // Title
+                R.drawable.hamburger, // Left Icon
+                R.drawable.search, // Right Icon
+                v -> {
+                    // Handle left icon click (e.g., open a drawer)
+                },
+                v -> {
+                    // Handle right icon click (e.g., show notifications)
+                }
+        );
+    }
     private void setTabListeners() {
         tabRecent.setOnClickListener(v -> {
             tabRecent.setTextColor(ContextCompat.getColor(requireContext(), R.color.activeTabColor));

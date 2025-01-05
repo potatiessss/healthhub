@@ -56,6 +56,24 @@ public class AppointmentFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FragmentsContainer activity = (FragmentsContainer) requireActivity();
+        activity.updateToolbar(
+                "APPOINTMENT", // Title
+                R.drawable.hamburger, // Left Icon
+                R.drawable.search, // Right Icon
+                v -> {
+                    // Handle left icon click (e.g., open a drawer)
+                },
+                v -> {
+                    // Handle right icon click (e.g., show notifications)
+                }
+        );
+    }
+
     private void loadAppointments(View view) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();

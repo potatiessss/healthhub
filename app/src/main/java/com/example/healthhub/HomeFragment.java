@@ -3,6 +3,7 @@ package com.example.healthhub;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,9 +62,27 @@ public class HomeFragment extends Fragment {
         // Fetch articles from Firebase
         fetchArticlesFromFirebase(rvArticles);
 
+
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FragmentsContainer activity = (FragmentsContainer) requireActivity();
+        activity.updateToolbar(
+                "HOME", // Title
+                R.drawable.hamburger, // Left Icon
+                R.drawable.search, // Right Icon
+                v -> {
+                    // Handle left icon click (e.g., open a drawer)
+                },
+                v -> {
+                    // Handle right icon click (e.g., show notifications)
+                }
+        );
+    }
     private void fetchAppointmentsFromFirebase(RecyclerView rvAppointments) {
         DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference("Appointments").child("current_user"); // Replace with actual user ID logic
 
@@ -110,5 +129,6 @@ public class HomeFragment extends Fragment {
                 // Handle database error
             }
         });
+
     }
 }
