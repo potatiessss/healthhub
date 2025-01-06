@@ -5,15 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -49,19 +45,7 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cart_new, container, false);
-
-        // Initialize the drawer layout and navigation view
-        drawerLayout = view.findViewById(R.id.drawerlayout);
-        navigationView = view.findViewById(R.id.navigation_view);
-
-        // Set up the hamburger button click to open the drawer
-        ImageButton sideDrawerButton = view.findViewById(R.id.sidedrawer);
-        sideDrawerButton.setOnClickListener(v -> {
-            if (drawerLayout != null) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
         Button checkoutButton = view.findViewById(R.id.checkoutbutton);
         checkoutButton.setOnClickListener(v -> {
@@ -84,7 +68,7 @@ public class CartFragment extends Fragment {
                 checkoutFragment.setArguments(bundle);
 
                 requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.Home, checkoutFragment)
+                        .replace(R.id.emptyFragment, checkoutFragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -96,9 +80,8 @@ public class CartFragment extends Fragment {
 
         // Check if the user is authenticated
         if (userId == null) {
-            // Handle case where the user is not authenticated
-            // You could show a message or redirect them to login
-            return view;
+            Toast.makeText(getContext(), "Please log in to view your cart", Toast.LENGTH_SHORT).show();
+            return null; // Exit early if no user is logged in
         }
 
         // Initialize RecyclerView
