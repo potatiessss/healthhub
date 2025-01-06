@@ -31,7 +31,8 @@
             android:scaleType="fitCenter"
             android:src="@drawable/back_button_inversed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <!-- Title TextView -->
 
@@ -58,9 +59,10 @@
             android:background="?selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/search"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -96,7 +98,8 @@
                 android:layout_height="30dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="Save Article"
-                android:src="@drawable/bookmark" />
+                android:src="@drawable/bookmark"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <!-- Article Image -->
             <ImageView

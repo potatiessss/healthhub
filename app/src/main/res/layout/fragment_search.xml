@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search"
-    android:background = "@drawable/plain_white_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/plain_white_bg"
     tools:context=".SearchFragment">
 
+    <!-- Back Button -->
     <ImageButton
         android:id="@+id/back_button_search"
         android:layout_width="37dp"
         android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:background="@null"
-        android:contentDescription="Button Image"
+        android:contentDescription="Back Button"
         android:scaleType="fitXY"
         android:src="@drawable/back_button"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="27dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
+    <!-- Search Bar -->
     <EditText
         android:id="@+id/search_bar_product"
-        android:layout_width="290dp"
+        android:layout_width="0dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="668dp"
         android:background="@drawable/input_bg"
         android:drawablePadding="10dp"
         android:inputType="text"
@@ -32,22 +36,42 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_button_search"
+        app:layout_constraintEnd_toStartOf="@id/filter_button"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
+    <!-- Filter Button -->
+    <ImageButton
+        android:id="@+id/filter_button"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:contentDescription="Filter Button"
+        android:scaleType="fitXY"
+        android:src="@drawable/filter_icon"
+        app:layout_constraintEnd_toStartOf="@id/search_button_search"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <!-- Search Button -->
     <ImageButton
         android:id="@+id/search_button_search"
         android:layout_width="37dp"
         android:layout_height="36dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:background="@null"
-        android:contentDescription="Button Image"
+        android:contentDescription="Search Button"
         android:scaleType="fitXY"
         android:src="@drawable/search_button"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="358dp"
-        tools:layout_editor_absoluteY="27dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

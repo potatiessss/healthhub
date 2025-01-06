@@ -21,12 +21,12 @@ import com.example.healthhub.models.Article_List;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticlesFragment extends Fragment {
+public class ArticlesFragmentSearched extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_articles, container, false);
+        View view = inflater.inflate(R.layout.fragment_articles_searched, container, false);
 
         // RecyclerView setup
         RecyclerView recyclerView = view.findViewById(R.id.articlesRecyclerView);
@@ -83,22 +83,11 @@ public class ArticlesFragment extends Fragment {
                     .commit();
         });
 
-        /*ImageButton hamburger = view.findViewById(R.id.hamburger);
-        hamburger.setOnClickListener(v -> {
-            SavedArticleFragment fragment = new SavedArticleFragment();
+        ImageButton backButton = view.findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
-            Bundle bundle = new Bundle();
-            fragment.setArguments(bundle);
-
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.emptyFragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        });*/
-
-
-        return view;
-    }
+            return view;
+        }
 
     private void displayArticles(List<Article_List> articles, RecyclerView recyclerView){
         // Log the total number of products added to the adapter
@@ -114,5 +103,5 @@ public class ArticlesFragment extends Fragment {
     }
 
 
-}
+    }
 

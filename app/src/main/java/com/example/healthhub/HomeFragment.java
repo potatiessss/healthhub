@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.healthhub.adapter.ArticleAdapter;
+import com.example.healthhub.ArticleAdapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +26,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private com.example.healthhub.adapter.ArticleAdapter articleAdapter;
+    private com.example.healthhub.ArticleAdapter articleAdapter;
     private List<Appointment> appointments = new ArrayList<>();
-    private List<Article> articles = new ArrayList<>();
+    private List<com.example.healthhub.Article> articles = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -52,19 +52,19 @@ public class HomeFragment extends Fragment {
         rvAppointments.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         // Fetch appointments from Firebase
-        fetchAppointmentsFromFirebase(rvAppointments);
+        //fetchAppointmentsFromFirebase(rvAppointments);
 
         // Articles RecyclerView
         RecyclerView rvArticles = view.findViewById(R.id.rv_articles);
         rvArticles.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         // Fetch articles from Firebase
-        fetchArticlesFromFirebase(rvArticles);
+        //fetchArticlesFromFirebase(rvArticles);
 
         return view;
     }
 
-    private void fetchAppointmentsFromFirebase(RecyclerView rvAppointments) {
+    /*private void fetchAppointmentsFromFirebase(RecyclerView rvAppointments) {
         DatabaseReference appointmentsRef = FirebaseDatabase.getInstance().getReference("Appointments").child("current_user"); // Replace with actual user ID logic
 
         appointmentsRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
@@ -86,9 +86,9 @@ public class HomeFragment extends Fragment {
                 // Handle database error
             }
         });
-    }
+    }*/
 
-    private void fetchArticlesFromFirebase(RecyclerView rvArticles) {
+    /*private void fetchArticlesFromFirebase(RecyclerView rvArticles) {
         DatabaseReference articlesRef = FirebaseDatabase.getInstance().getReference("Articles");
 
         articlesRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 articles.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Article article = snapshot.getValue(Article.class);
+                    com.example.healthhub.Article article = snapshot.getValue(com.example.healthhub.Article.class);
                     if (article != null) {
                         articles.add(article);
                     }
@@ -110,5 +110,5 @@ public class HomeFragment extends Fragment {
                 // Handle database error
             }
         });
-    }
+    }*/
 }

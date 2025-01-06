@@ -9,7 +9,7 @@ public class Product {
     private String usefulFor;
     private String dosage;
     private String postage;  // Keep postage as a String
-    private String image;    // Change image to String to store image URL
+    private String image;    // Change articleImage to String to store articleImage URL
 
     // No-argument constructor (required by Firebase)
     public Product() {
@@ -58,6 +58,6 @@ public class Product {
     }
 
     public String getImage() {
-        return image;  // Getter for image URL
+        return image;  // Getter for articleImage URL
     }
 }

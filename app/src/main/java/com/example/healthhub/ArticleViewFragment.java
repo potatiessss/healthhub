@@ -1,110 +1,92 @@
 package com.example.healthhub;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context;
+import android.os.Bundle; import androidx.annotation.NonNull; import androidx.annotation.Nullable; import androidx.fragment.app.Fragment;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import android.util.Log;
+import android.view.LayoutInflater; import android.view.View; import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton; import android.widget.ImageView; import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.healthhub.models.Product; import com.example.healthhub.models.Article_Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class ArticleViewFragment extends Fragment {
 
-    private static final String ARG_TITLE = "article_title";
-    private static final String ARG_IMAGE_URL = "article_image_url";
-    private static final String ARG_ARTICLE_ID = "article_id";
+    private SavedArticleManager savedArticleManager;
 
-    private TextView articleTitle;
-    private ImageView articleImage;
-    private ImageButton savedButton, searchButtonView, backButton;
-    private boolean isSaved = false;
+    private String articleId;
 
-    private DatabaseReference savedArticlesReference;
+    private com.example.healthhub.Article article;
 
-    public static ArticleViewFragment newInstance(String articleId, String title, String imageUrl) {
-        ArticleViewFragment fragment = new ArticleViewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_ARTICLE_ID, articleId);
-        args.putString(ARG_TITLE, title);
-        args.putString(ARG_IMAGE_URL, imageUrl);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private String USER_ID;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_article_view, container, false);
+        USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Initialize views
-        articleTitle = rootView.findViewById(R.id.articleTitle);
-        articleImage = rootView.findViewById(R.id.articleImage);
-        savedButton = rootView.findViewById(R.id.savedButton);
-        searchButtonView = rootView.findViewById(R.id.searchButtonView);
-        backButton = rootView.findViewById(R.id.backButtonView);
+        return inflater.inflate(R.layout.fragment_article_view, container, false);
+    }
 
-        // Firebase reference for saved articles
-        savedArticlesReference = FirebaseDatabase.getInstance().getReference("saved_articles");
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        // Retrieve and display article data
-        if (getArguments() != null) {
-            String articleId = getArguments().getString(ARG_ARTICLE_ID);
-            String title = getArguments().getString(ARG_TITLE);
-            String imageUrl = getArguments().getString(ARG_IMAGE_URL);
+        TextView articleTitle = view.findViewById(R.id.articleTitle);
+        ImageView articleImage = view.findViewById(R.id.articleImage);
+        ImageButton saveButton = view.findViewById(R.id.savedButton);
 
-            articleTitle.setText(title); // Update title
-            loadImageWithPicasso(imageUrl, articleImage); // Update image
+        savedArticleManager = new SavedArticleManager();
 
-            setupSaveButton(articleId, title, imageUrl);
+
+
+        Bundle args = getArguments();
+        if (args != null) {
+            String title = args.getString("title");
+            articleId = args.getString("articleId");
+
+            // Fetch product from Firebase
+            Article_Firebase.fetchArticlesFromFirebase(new Article_Firebase.ArticleDataCallback() {
+                @Override
+                public void onArticlesFetched(List<com.example.healthhub.Article> articles) {
+                    for (com.example.healthhub.Article fetchedArticle : articles) {
+                        if (fetchedArticle.getTitle().equals(title)) {
+                            articleTitle.setText(fetchedArticle.getTitle());
+                            article = fetchedArticle; // Set the article variable
+
+                            // Use Picasso to load the image from the URL
+                            Picasso.get().load(fetchedArticle.getArticleImage()).into(articleImage);
+                            break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onArticlesFetchedFailed(Exception exception) {
+                    // Handle error if fetching fails
+                }
+            });
         }
 
-        // Setup back button click listener
-        backButton.setOnClickListener(v -> requireActivity().onBackPressed()); // This triggers the back press
-
-        // Setup search button click listener
-        searchButtonView.setOnClickListener(v -> {
-            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.emptyFragment, new ArticleSearchFragment()); // Ensure emptyFragment is correct
-            transaction.addToBackStack(null); // Add the transaction to the back stack
-            transaction.commit();
-        });
-
-        return rootView;
-    }
-
-    private void setupSaveButton(String articleId, String title, String imageUrl) {
-        // Check initial save state (implement Firebase logic if needed)
-        savedButton.setOnClickListener(v -> {
-            isSaved = !isSaved; // Toggle save state
-            if (isSaved) {
-                savedButton.setImageResource(R.drawable.bookmark_filled); // Set filled icon
-
-                // Save article to Firebase using the Article class
-                Article article = new Article(articleId, title, imageUrl);  // Use Article class here
-                savedArticlesReference.child(articleId).setValue(article);
+        saveButton.setOnClickListener(v -> {
+            Log.d("ArticleViewFragment", "Save button clicked for product ID: " + articleId);
+            if (articleId != null) {
+                Article_Firebase.saveArticleToFirebase(USER_ID, articleId, article);
+                savedArticleManager.saveArticle(articleId);
+                Toast.makeText(requireContext(), "Article Saved!", Toast.LENGTH_SHORT).show(); // Show the Toast message
             } else {
-                savedButton.setImageResource(R.drawable.bookmark); // Set unfilled icon
-
-                // Remove article from Firebase
-                savedArticlesReference.child(articleId).removeValue();
+                Log.e("ArticleViewFragment", "Article ID is null, cannot save.");
             }
         });
-    }
 
-    private void loadImageWithPicasso(String imageUrl, ImageView imageView) {
-        Picasso.get()
-                .load(imageUrl)
-                .placeholder(R.drawable.placeholder_image) // Placeholder while loading
-                .error(R.drawable.error_image) // Error image
-                .into(imageView);
+
+        // Back button functionality
+        ImageButton backButton = view.findViewById(R.id.backButtonView);
+        backButton.setOnClickListener(v -> requireActivity().onBackPressed());
     }
 }

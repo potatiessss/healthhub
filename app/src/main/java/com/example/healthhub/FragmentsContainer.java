@@ -49,7 +49,7 @@ public class FragmentsContainer extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.MyAppointment || destination.getId() == R.id.doctorDetailsFragment || destination.getId() == R.id.doctorSearch ||
                     destination.getId() == R.id.MLTListFragment || destination.getId() == R.id.MLTDetailsFragment || destination.getId() == R.id.MyOrders ||
-                    destination.getId() == R.id.MyCart || destination.getId() == R.id.SavedArticles) {
+                    destination.getId() == R.id.MyCart || destination.getId() == R.id.savedArticleFragment) {
                 // Hide Bottom Navigation for specific fragments
                 findViewById(R.id.bottomNavi).setVisibility(View.GONE);
             } else {
