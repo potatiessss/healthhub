@@ -6,14 +6,24 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentsContainer">
-
+    tools:context=".FragmentsContainer"
+    android:background="@drawable/greenbackground">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/hamburger_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hamburgermenu"
+            android:layout_margin="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Open Navigation Drawer"
+            android:layout_gravity="start|top" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/emptyFragment"
@@ -24,6 +34,7 @@
             app:defaultNavHost ="true"
             app:navGraph= "@navigation/nav"/>
 
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavi"
             android:layout_width="match_parent"
@@ -31,6 +42,13 @@
             app:menu="@menu/menu_bottom" />
 
     </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/sidenavi"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/menu_side" />
 
 
 

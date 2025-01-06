@@ -15,40 +15,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Hamburger Button -->
-        <ImageButton
-            android:id="@+id/hamburger"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="12dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/hamburger"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Title TextView -->
-
-        <!-- Search Button -->
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="108dp"
-            android:fontFamily="@font/interfont"
-            android:text="Articles"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/searchButton"
-            app:layout_constraintHorizontal_bias="0.008"
-            app:layout_constraintStart_toEndOf="@id/hamburger"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
 
         <ImageButton
             android:id="@+id/searchButton"
@@ -61,8 +27,10 @@
             android:src="@drawable/search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.466" />
+            app:layout_constraintVertical_bias="0.47" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
