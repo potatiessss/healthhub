@@ -41,6 +41,19 @@ public class PharmacyFragment extends Fragment {
                     .commit();
         });
 
+        ImageButton searchButton = view.findViewById(R.id.search_menu);
+        searchButton.setOnClickListener(v -> {
+            SearchFragment fragment = new SearchFragment();
+
+            Bundle bundle = new Bundle();
+            fragment.setArguments(bundle);
+
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.emptyFragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
 
         ImageButton productButton1 = view.findViewById(R.id.popular_product1);
         productButton1.setOnClickListener(v -> {
@@ -155,4 +168,3 @@ public class PharmacyFragment extends Fragment {
         return null;
     }
 }
-

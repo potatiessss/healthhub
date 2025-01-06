@@ -1,4 +1,4 @@
-package com.example.healthhub;
+package com.example.healthhub.models;
 
 import android.util.Log;
 
@@ -25,11 +25,11 @@ public class Article_Firebase {
         articlesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Article> articles = new ArrayList<>();
+                List<com.example.healthhub.Article> articles = new ArrayList<>();
                 if (dataSnapshot.exists() && dataSnapshot.hasChildren()) {
                     for (DataSnapshot articleSnapshot : dataSnapshot.getChildren()) {
                         try {
-                            Article article = articleSnapshot.getValue(Article.class);
+                            com.example.healthhub.Article article = articleSnapshot.getValue(com.example.healthhub.Article.class);
                             if (article != null) {
                                 articles.add(article);
                             }
@@ -38,19 +38,19 @@ public class Article_Firebase {
                         }
                     }
                 }
-                callback.onDataFetched(articles);
+                callback.onArticlesFetched(articles);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e(TAG, "Error fetching articles: " + databaseError.getMessage(), databaseError.toException());
-                callback.onDataFetchFailed(databaseError.toException());
+                callback.onArticlesFetchedFailed(databaseError.toException());
             }
         });
     }
 
     // Save an article to a user's savedArticles in Firebase
-    public static void saveArticleToFirebase(String userId, String articleId, Article article) {
+    public static void saveArticleToFirebase(String userId, String articleId, com.example.healthhub.Article article) {
         if (userId == null || articleId == null || article == null) {
             Log.e(TAG, "Invalid arguments for saving article");
             return;
@@ -89,7 +89,7 @@ public class Article_Firebase {
 
     // Callback interface to handle the result of data fetch
     public interface ArticleDataCallback {
-        void onDataFetched(List<Article> articles);
-        void onDataFetchFailed(Exception exception);
+        void onArticlesFetched(List<com.example.healthhub.Article> articles);
+        void onArticlesFetchedFailed(Exception exception);
     }
 }

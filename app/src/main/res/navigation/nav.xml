@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
     app:startDestination="@+id/Home">
@@ -14,10 +14,14 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_home_to_appointmentFragment"
-            app:destination="@id/Appointment" />
+            app:destination="@id/Appointment"
+            app:popUpTo="@id/Home"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_Home_to_pharmacyFragment"
-            app:destination="@id/pharmacyFragment" />
+            app:destination="@id/Pharmacy"
+            app:popUpTo="@id/Home"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_home_to_articleFragment"
             app:destination="@id/Article" />
@@ -50,10 +54,6 @@
         android:label="fragment_my_profile"
         tools:layout="@layout/fragment_my_profile" />
     <fragment
-        android:id="@+id/pharmacyFragment"
-        android:name="com.example.healthhub.PharmacyFragment"
-        android:label="PharmacyFragment" />
-    <fragment
         android:id="@+id/myAppointmentFragment"
         android:name="com.example.healthhub.MyAppointmentFragment"
         android:label="MyAppointmentFragment" />
@@ -69,4 +69,13 @@
             android:id="@+id/action_doctorSearch_to_doctorDetailsFragment"
             app:destination="@id/doctorDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/MLTListFragment"
+        android:name="com.example.healthhub.MLTListFragment"
+        android:label="MLTListFragment" />
+    <fragment
+        android:id="@+id/MLTDetailsFragment"
+        android:name="com.example.healthhub.MLTDetailsFragment"
+        android:label="fragment_m_l_t_details"
+        tools:layout="@layout/fragment_m_l_t_details" />
 </navigation>

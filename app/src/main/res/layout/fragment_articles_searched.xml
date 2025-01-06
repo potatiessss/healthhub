@@ -17,7 +17,7 @@
 
         <!-- Hamburger Button -->
         <ImageButton
-            android:id="@+id/hamburger"
+            android:id="@+id/back_button"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
@@ -25,7 +25,7 @@
             android:maxWidth="30dp"
             android:maxHeight="30dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/hamburger"
+            android:src="@drawable/back_button_inversed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="108dp"
+            android:layout_marginEnd="112dp"
             android:fontFamily="@font/interfont"
             android:text="Articles"
             android:textColor="@color/white"
@@ -48,7 +49,7 @@
             app:layout_constraintHorizontal_bias="0.008"
             app:layout_constraintStart_toEndOf="@id/hamburger"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.8" />
 
         <ImageButton
             android:id="@+id/searchButton"

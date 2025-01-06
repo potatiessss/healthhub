@@ -1,128 +1,108 @@
 package com.example.healthhub;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.os.Parcelable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.healthhub.adapter.ArticleAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.healthhub.models.Article_Firebase;
+import com.example.healthhub.models.Article_List;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ArticleSearchFragment extends Fragment {
-    private EditText searchBar;
-    private ImageButton searchButton, backButtonSearch;
-    private RecyclerView searchResultsRecyclerView;
-    private TextView noResultsText; // TextView for no results
-    private ArticleAdapter articleAdapter;
-    private List<Article> allArticles;
-    private DatabaseReference databaseReference;
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_article_search, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_article_search, container, false);
 
-        // Initialize views
-        searchBar = rootView.findViewById(R.id.searchBar);
-        searchButton = rootView.findViewById(R.id.searchButton);
-        backButtonSearch = rootView.findViewById(R.id.backButtonSearch);
-        searchResultsRecyclerView = rootView.findViewById(R.id.searchResultsRecyclerView);
-        noResultsText = rootView.findViewById(R.id.noResultsText); // Initialize TextView
+        EditText searchBar = view.findViewById(R.id.search_bar_product);
+        ImageButton searchButton = view.findViewById(R.id.search_button_search);
 
-        // Set up RecyclerView
-        allArticles = new ArrayList<>();
-        articleAdapter = new ArticleAdapter(allArticles, requireContext());
-        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        searchResultsRecyclerView.setAdapter(articleAdapter);
+        searchButton.setOnClickListener(v -> {
+            String searchQuery = searchBar.getText().toString().trim();
 
-        // Initialize Firebase
-        databaseReference = FirebaseDatabase.getInstance().getReference("articles");
-        fetchArticlesFromFirebase();
+            if (!TextUtils.isEmpty(searchQuery)) {
+                // Log the search query for debugging
+                Log.d("ArticleSearchFragment", "Search Query: " + searchQuery);
+                searchArticles(searchQuery.toLowerCase(Locale.ROOT));
+            }
+        });
+
+        ImageButton backButton = view.findViewById(R.id.back_button_search);
+        backButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
 
-        // Set up search bar listener
-        setupSearch();
 
-        // Back button click listener
-        backButtonSearch.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
-
-        return rootView;
+        return view;
     }
 
-    private void fetchArticlesFromFirebase() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
+    private void searchArticles(String searchQuery) {
+        // Fetch all articles from Firebase
+        Article_Firebase.fetchArticlesFromFirebase(new Article_Firebase.ArticleDataCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                allArticles.clear(); // Clear the existing list
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Article article = snapshot.getValue(Article.class);
-                    if (article != null) {
-                        allArticles.add(article); // Add article to the list
+            public void onArticlesFetched(List<com.example.healthhub.Article> articles) {
+                List<Article_List> filteredArticles = new ArrayList<>();
+
+                for (com.example.healthhub.Article article : articles) {
+                    // Log product details to verify values for debugging
+                    Log.d("ArticleSearchFragment", "Checking product: " + article.getTitle());
+
+                    // Check if the search query matches any field (case-insensitive)
+                    if (article.getTitle().toLowerCase(Locale.ROOT).contains(searchQuery) ||
+                            article.getArticleId().toLowerCase(Locale.ROOT).contains(searchQuery)) {
+
+                        filteredArticles.add(new Article_List(
+                                article.getTitle(),
+                                article.getArticleImage(),
+                                article.getArticleId()
+                        ));
                     }
                 }
-                articleAdapter.notifyDataSetChanged(); // Notify the adapter
+
+                // Log filtered articles size for debugging
+                Log.d("ArticleSearchFragment", "Filtered articles size: " + filteredArticles.size());
+
+                // Pass filtered articles to ArticleViewFragment
+                loadArticlesFragment(filteredArticles);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Log the error or display a message
+            public void onArticlesFetchedFailed(Exception exception) {
+                exception.printStackTrace();
             }
         });
     }
 
-    private void setupSearch() {
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    private void loadArticlesFragment(List<Article_List> filteredArticles) {
+        // Log to verify the articles being passed
+        Log.d("ArticleSearchFragment", "Loading ArticleViewFragment with filtered articles.");
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterArticles(s.toString());
-            }
+        // Create ArticleViewFragment instance
+        ArticlesFragmentSearched articlesFragmentSearched = new ArticlesFragmentSearched();
 
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
+        // Pass filtered articles to ArticleViewFragment via arguments
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("filteredArticles", (ArrayList<? extends Parcelable>) filteredArticles);
+        articlesFragmentSearched.setArguments(bundle);
+
+        // Replace current fragment with ArticleViewFragment
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.emptyFragment, articlesFragmentSearched);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
-
-    // Filter articles based on search query
-    private void filterArticles(String query) {
-        articleAdapter.filterArticles(query);
-
-        // Show or hide "No Results" message
-        if (allArticles.isEmpty() || articleAdapter.getItemCount() == 0) {
-            noResultsText.setVisibility(View.VISIBLE);
-        } else {
-            noResultsText.setVisibility(View.GONE);
-        }
-
-
-        // Manual search button (optional if you want an explicit search action)
-        /*searchButton.setOnClickListener(v -> {
-            String query = searchBar.getText().toString().toLowerCase(); // Normalize input
-            articleAdapter.filterArticles(query);
-        });
-
-         */
-
-
-    }
-
 }
