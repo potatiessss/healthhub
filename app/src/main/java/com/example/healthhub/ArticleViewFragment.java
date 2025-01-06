@@ -1,6 +1,7 @@
 package com.example.healthhub;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,23 @@ public class ArticleViewFragment extends Fragment {
 
         return rootView;
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        FragmentsContainer activity = (FragmentsContainer) requireActivity();
+        activity.updateToolbar(
+                "ARTICLES", // Title
+                R.drawable.back_button_inversed, // Left Icon
+                R.drawable.search, // Right Icon
+                v -> {
+                    requireActivity().onBackPressed();
+                },
+                v -> {
+                    navigateToFragment(new ArticleSearchFragment());
+                }
+        );
+    }
 
     private void setupSaveButton(String articleId, String title, String imageUrl) {
         // Check initial save state (implement Firebase logic if needed)
@@ -99,7 +117,13 @@ public class ArticleViewFragment extends Fragment {
             }
         });
     }
-
+    private void navigateToFragment(Fragment fragment) {
+        Log.d("Navigation", "Navigating to: " + fragment.getClass().getSimpleName());
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.emptyFragment, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     private void loadImageWithPicasso(String imageUrl, ImageView imageView) {
         Picasso.get()
                 .load(imageUrl)

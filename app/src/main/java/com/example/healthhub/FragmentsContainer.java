@@ -82,6 +82,14 @@ public class FragmentsContainer extends AppCompatActivity {
         }
     }
 
+    public void setToolbarVisibility(boolean isVisible) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (isVisible) {
+            toolbar.setVisibility(View.VISIBLE);  // Show toolbar
+        } else {
+            toolbar.setVisibility(View.GONE);  // Hide toolbar
+        }
+    }
     public interface ToolbarUpdateListener {
         // No need to define updateToolbar here anymore
     }

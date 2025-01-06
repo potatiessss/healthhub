@@ -62,22 +62,6 @@ public class DoctorDetailsFragment extends Fragment {
 
         return view;
     }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-        FragmentsContainer activity = (FragmentsContainer) requireActivity();
-        activity.updateToolbar(
-                "DOCTOR DETAILS", // Title
-                R.drawable.back_button_inversed, // Left Icon
-                0, // Right Icon
-                v -> {
-                    // Handle left icon click (e.g., open a drawer)
-                },
-                v -> {
-                    // Handle right icon click (e.g., show notifications)
-                }
-        );
-    }
 }
 

@@ -82,16 +82,6 @@ public class DoctorSearchFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Hide the toolbar
-        FragmentsContainer activity = (FragmentsContainer) requireActivity();
-        activity.findViewById(R.id.toolbar).setVisibility(View.GONE);  // Hides the toolbar
-
-        // You can add other logic here as needed, like showing or hiding specific icons or handling actions
-    }
 
     private void fetchDoctorsFromFirebase() {
         DatabaseReference doctorsRef = FirebaseDatabase.getInstance().getReference("Doctors");

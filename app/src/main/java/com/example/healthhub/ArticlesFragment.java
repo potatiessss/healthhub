@@ -86,10 +86,11 @@ public class ArticlesFragment extends Fragment {
                 R.drawable.hamburger, // Left Icon
                 R.drawable.search, // Right Icon
                 v -> {
-                    // Handle left icon click (e.g., open a drawer)
+
+
                 },
                 v -> {
-                    // Handle right icon click (e.g., show notifications)
+                    navigateToFragment(new ArticleSearchFragment());
                 }
         );
     }
