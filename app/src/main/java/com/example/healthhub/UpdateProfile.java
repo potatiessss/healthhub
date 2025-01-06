@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 public class UpdateProfile extends AppCompatActivity {
 
     EditText ET_UpdateName, ET_DOB;
+    ImageView back;
     RadioGroup RG_UpdateGender;
     RadioButton RB_UpdatedGenderSelected;
     String textFName, textDOB, textGender;
@@ -47,6 +49,18 @@ public class UpdateProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_update_profile);
+
+        back = findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.emptyFragment, new MyProfileFragment()) // replace 'fragment_container' with your actual container ID
+                        .addToBackStack(null)  // Optional: to add to the back stack so the user can navigate back
+                        .commit();
+
+            }
+        });
 
 
         //Upload Pic TV

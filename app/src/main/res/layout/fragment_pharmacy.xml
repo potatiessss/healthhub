@@ -1,198 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Pharmacy"
-    android:background="@drawable/pharmacybg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Login">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/pharmacy_title"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Pharmacy"
+        android:background="@drawable/greenbackground"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/abril_fatface"
-        android:text="Pharmacy"
-        android:textColor="@color/white"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".Login">
 
-    <ImageView
-        android:id="@+id/deliverypromo"
-        android:layout_width="330dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/delivery"
-        app:layout_constraintTop_toBottomOf="@id/pharmacy_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/deliverypromo"
+            android:layout_width="500dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="64dp"
+            android:src="@drawable/delivery"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/headline1pharmacy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="We Offer:"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/deliverypromo" />
+        <TextView
+            android:id="@+id/headline1pharmacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="We Offer:"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/deliverypromo" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="260dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/products_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headline1pharmacy" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="231dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/products_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headline1pharmacy" />
 
-    <TextView
-        android:id="@+id/product_iconpharmacy1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:text="Medicine"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView2" />
+        <TextView
+            android:id="@+id/product_iconpharmacy1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:text="Medicine"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView2" />
 
-    <TextView
-        android:id="@+id/product_iconpharmacy2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lab Tests"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/imageView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/product_iconpharmacy2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lab Tests"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/imageView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/product_iconpharmacy3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="86dp"
-        android:text="Devices"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView2" />
+        <TextView
+            android:id="@+id/product_iconpharmacy3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="86dp"
+            android:text="Devices"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView2" />
 
-    <TextView
-        android:id="@+id/headline2pharmacy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Popular Products"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/product_iconpharmacy2"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/headline2pharmacy"
+            android:layout_width="210dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Popular Products"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_iconpharmacy2" />
 
-    <ImageButton
-        android:id="@+id/popular_product1"
-        android:layout_width="127dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:contentDescription="Button Image"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/popular_product1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
+        <ImageButton
+            android:id="@+id/popular_product1"
+            android:layout_width="118dp"
+            android:layout_height="112dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:contentDescription="Button Image"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/popular_product1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
 
-    <ImageButton
-        android:id="@+id/popular_product2"
-        android:layout_width="127dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:contentDescription="Button Image"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/popular_product2"
-        app:layout_constraintStart_toEndOf="@id/popular_product1"
-        app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
+        <ImageButton
+            android:id="@+id/popular_product2"
+            android:layout_width="119dp"
+            android:layout_height="111dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:contentDescription="Button Image"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/popular_product2"
+            app:layout_constraintStart_toEndOf="@id/popular_product1"
+            app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
 
-    <ImageButton
-        android:id="@+id/popular_product3"
-        android:layout_width="127dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:contentDescription="Button Image"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/popular_product3"
-        app:layout_constraintStart_toEndOf="@id/popular_product2"
-        app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
+        <ImageButton
+            android:id="@+id/popular_product3"
+            android:layout_width="122dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:contentDescription="Button Image"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/popular_product3"
+            app:layout_constraintStart_toEndOf="@id/popular_product2"
+            app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
 
-    <ImageButton
-        android:id="@+id/viewmore_button"
-        android:layout_width="171dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:background="@null"
-        android:contentDescription="Button Image"
-        android:scaleType="centerInside"
+        <ImageButton
+            android:id="@+id/viewmore_button"
+            android:layout_width="180dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:contentDescription="Button Image"
+            android:scaleType="centerInside"
+            android:src="@drawable/viewmore"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popular_product1" />
 
-        android:src="@drawable/viewmore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/popular_product1" />
+        <ImageButton
+            android:id="@+id/search_menu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:contentDescription="Button Image"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.925"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.042" />
 
-    <ImageButton
-        android:id="@+id/hamburger_menu"
-        android:layout_width="57dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:contentDescription="Button Image"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/hamburger"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pharmacy_title" />
-
-    <ImageButton
-        android:id="@+id/search_menu"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:contentDescription="Button Image"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pharmacy_title" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

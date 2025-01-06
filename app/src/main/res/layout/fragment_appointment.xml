@@ -1,24 +1,75 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/greenbackground"
+    android:padding="16dp">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/baby_blue" android:padding="16dp">
-    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_horizontal">
-        <!--  Choose Specialist Dropdown  -->
-        <TextView android:id="@+id/tv_choose_specialist" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Choose specialist" android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/black" android:layout_marginBottom="8dp"/>
-        <Spinner android:id="@+id/spinner_specialist" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_spinner" android:layout_marginBottom="16dp"/>
-        <!--  Choose a Date  -->
-        <TextView android:id="@+id/tv_choose_date" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Choose a date" android:textSize="16sp" android:textStyle="bold" android:textColor="@android:color/black" android:layout_marginBottom="8dp"/>
-        <CalendarView android:id="@+id/calendar_view" android:layout_width="match_parent" android:layout_height="315dp" android:layout_marginBottom="16dp" android:background="@drawable/rounded_calendar"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+
+
+        <!-- Choose Specialist Dropdown -->
+        <TextView
+            android:id="@+id/tv_choose_specialist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose specialist"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_specialist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_spinner"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Choose a Date -->
+        <TextView
+            android:id="@+id/tv_choose_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose a date"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="8dp" />
+
+        <CalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="315dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_calendar" />
+
+        <!-- RecyclerView for Appointments -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_appointments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp" />
 
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-        <!--  Action Buttons  -->
+            <Button
+                android:id="@+id/btn_find_specialist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:text="Find Specialist" />
 
-        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center">
-
-            <Button android:id="@+id/btn_find_specialist" android:layout_width="wrap_content" android:layout_height="wrap_content" android:backgroundTint="@color/black" android:text="Find Specialist"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

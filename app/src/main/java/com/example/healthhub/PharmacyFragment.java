@@ -34,6 +34,7 @@ public class PharmacyFragment extends Fragment {
             Bundle bundle = new Bundle();
 
             fragment.setArguments(bundle);
+            requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
 
             requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.emptyFragment, fragment)
@@ -62,6 +63,7 @@ public class PharmacyFragment extends Fragment {
                 public void onProductsFetched(List<Product> products) {
                     Product product = findProductByName(products, "Ibuprofen (400mg)");
                     if (product != null) {
+                        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
                         navigateToMLTDetails(product);
                     }
                 }
@@ -80,6 +82,7 @@ public class PharmacyFragment extends Fragment {
                 public void onProductsFetched(List<Product> products) {
                     Product product = findProductByName(products, "Pregnancy Test");
                     if (product != null) {
+                        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
                         navigateToMLTDetails(product);
                     }
                 }
@@ -98,6 +101,7 @@ public class PharmacyFragment extends Fragment {
                 public void onProductsFetched(List<Product> products) {
                     Product product = findProductByName(products, "Salbutamol Inhaler (100mcg)");
                     if (product != null) {
+                        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
                         navigateToMLTDetails(product);
                     }
                 }
@@ -130,6 +134,12 @@ public class PharmacyFragment extends Fragment {
                 .replace(R.id.emptyFragment, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.VISIBLE);
     }
 
     private void navigateToMLTList(Product product) {
