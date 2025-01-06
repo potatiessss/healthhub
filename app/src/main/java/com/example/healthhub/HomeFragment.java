@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.healthhub.adapter.ArticleAdapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private ArticleAdapter articleAdapter;
+    private com.example.healthhub.adapter.ArticleAdapter articleAdapter;
     private List<Appointment> appointments = new ArrayList<>();
     private List<Article> articles = new ArrayList<>();
 
@@ -43,7 +44,7 @@ public class HomeFragment extends Fragment {
         );
 
         view.findViewById(R.id.btn_pharmacy_home).setOnClickListener(v ->
-                Navigation.findNavController(view).navigate(R.id.action_home_to_articleFragment)
+                Navigation.findNavController(view).navigate(R.id.action_Home_to_pharmacyFragment)
         );
 
         // Appointments RecyclerView
@@ -100,7 +101,7 @@ public class HomeFragment extends Fragment {
                         articles.add(article);
                     }
                 }
-                articleAdapter = new ArticleAdapter(articles);
+                articleAdapter = new ArticleAdapter(articles, requireContext());
                 rvArticles.setAdapter(articleAdapter);
             }
 

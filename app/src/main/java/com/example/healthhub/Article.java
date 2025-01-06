@@ -4,6 +4,7 @@ public class Article {
     private String articleId;  // The unique ID of the article
     private String title;      // Title of the article
     private String articleImage;  // Image URL for the article
+    private boolean saved;
 
     public Article() {
     }
@@ -37,4 +38,12 @@ public class Article {
     public void setArticleImage(String articleImage) {
         this.articleImage = articleImage;
     }
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
+
 }
