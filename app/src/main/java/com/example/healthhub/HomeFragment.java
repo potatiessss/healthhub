@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
 
     private com.example.healthhub.ArticleAdapter articleAdapter;
     private List<Appointment> appointments = new ArrayList<>();
-    private List<com.example.healthhub.Article> articles = new ArrayList<>();
+    private List<com.example.healthhub.models.Article> articles = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 articles.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    com.example.healthhub.Article article = snapshot.getValue(com.example.healthhub.Article.class);
+                    com.example.healthhub.models.Article article = snapshot.getValue(com.example.healthhub.models.Article.class);
                     if (article != null) {
                         articles.add(article);
                     }

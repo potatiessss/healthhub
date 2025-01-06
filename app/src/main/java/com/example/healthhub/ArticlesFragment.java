@@ -45,9 +45,9 @@ public class ArticlesFragment extends Fragment {
             // Fetch products from Firebase if no filtered products are passed
             Article_Firebase.fetchArticlesFromFirebase(new Article_Firebase.ArticleDataCallback() {
                 @Override
-                public void onArticlesFetched(List<com.example.healthhub.Article> articles) {
+                public void onArticlesFetched(List<com.example.healthhub.models.Article> articles) {
                     List<Article_List> articleList = new ArrayList<>();
-                    for (com.example.healthhub.Article article : articles) {
+                    for (com.example.healthhub.models.Article article : articles) {
                         articleList.add(new Article_List(
                                 article.getTitle(),
                                 article.getArticleImage(),

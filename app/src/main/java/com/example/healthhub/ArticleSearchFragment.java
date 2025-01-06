@@ -54,10 +54,10 @@ public class ArticleSearchFragment extends Fragment {
         // Fetch all articles from Firebase
         Article_Firebase.fetchArticlesFromFirebase(new Article_Firebase.ArticleDataCallback() {
             @Override
-            public void onArticlesFetched(List<com.example.healthhub.Article> articles) {
+            public void onArticlesFetched(List<com.example.healthhub.models.Article> articles) {
                 List<Article_List> filteredArticles = new ArrayList<>();
 
-                for (com.example.healthhub.Article article : articles) {
+                for (com.example.healthhub.models.Article article : articles) {
                     // Log product details to verify values for debugging
                     Log.d("ArticleSearchFragment", "Checking product: " + article.getTitle());
 

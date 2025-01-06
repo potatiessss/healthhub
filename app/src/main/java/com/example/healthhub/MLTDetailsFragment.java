@@ -81,6 +81,32 @@ public class MLTDetailsFragment extends Fragment {
             }
         });
 
+        ImageButton buyButton = view.findViewById(R.id.buy_now_button);
+        buyButton.setOnClickListener(v -> {
+            CartFragment fragment = new CartFragment();
+
+            Bundle bundle = new Bundle();
+            fragment.setArguments(bundle);
+
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.emptyFragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        ImageButton cartButton = view.findViewById(R.id.cart_button_MLTDetails);
+        cartButton.setOnClickListener(v -> {
+            CartFragment fragment = new CartFragment();
+
+            Bundle bundle = new Bundle();
+            fragment.setArguments(bundle);
+
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.emptyFragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
         // Back button functionality
         ImageButton backButton = view.findViewById(R.id.back_button_MLTDetails);
         backButton.setOnClickListener(v -> requireActivity().onBackPressed());

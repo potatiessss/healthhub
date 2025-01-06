@@ -28,7 +28,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         this.articleList = articleList;
     }
 
-    public ArticleAdapter(List<com.example.healthhub.Article> articles, Context context) {
+    public ArticleAdapter(List<com.example.healthhub.models.Article> articles, Context context) {
     }
 
     @NonNull
