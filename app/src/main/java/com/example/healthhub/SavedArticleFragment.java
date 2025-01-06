@@ -21,6 +21,9 @@ import com.example.healthhub.models.SavedArticle_Firebase;
 import java.util.List;
 
 public class SavedArticleFragment extends Fragment {
+    private ImageButton hamburger;
+    private TextView tvTitle;
+    private ImageButton searchButton;
 
     private static final String TAG = "SavedArticleFragment";
 
@@ -31,6 +34,15 @@ public class SavedArticleFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.articlesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        hamburger = view.findViewById(R.id.hamburger);
+        tvTitle = view.findViewById(R.id.tvTitle);
+        searchButton = view.findViewById(R.id.searchButton);
+
+        // Hide the views
+        hamburger.setVisibility(View.GONE);
+        tvTitle.setVisibility(View.GONE);
+        searchButton.setVisibility(View.GONE);
 
 
         SavedArticle_Firebase.fetchSavedArticleWithDetails(new SavedArticle_Firebase.SavedArticleDataCallback() {

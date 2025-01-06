@@ -93,4 +93,8 @@
         android:name="com.example.healthhub.SavedArticles"
         android:label="fragment_saved_articles"
         tools:layout="@layout/fragment_saved_articles" />
+    <fragment
+        android:id="@+id/savedArticleFragment"
+        android:name="com.example.healthhub.SavedArticleFragment"
+        android:label="SavedArticleFragment" />
 </navigation>
