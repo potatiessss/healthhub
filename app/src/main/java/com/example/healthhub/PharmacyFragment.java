@@ -3,6 +3,8 @@ package com.example.healthhub;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import com.example.healthhub.models.Product;
 import com.example.healthhub.models.Product_Firebase;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
 public class PharmacyFragment extends Fragment {
-
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     public PharmacyFragment() {
     }
 
@@ -26,6 +30,46 @@ public class PharmacyFragment extends Fragment {
 
         //ImageButton backButton = view.findViewById(R.id.hamburger_menu);
         //backButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        /*drawerLayout = view.findViewById(R.id.pharmacy_drawer_layout);
+        navigationView = view.findViewById(R.id.pharmacy_navigation_view);
+
+        // Set up hamburger button for drawer
+        ImageButton sideDrawerButton = view.findViewById(R.id.hamburger_menu);
+        sideDrawerButton.setOnClickListener(v -> {
+            if (drawerLayout != null) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        // Handle NavigationView item selection
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.MyAppointmentsDrawer:
+                    // Navigate to My Appointments
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.pharmacy_content_frame, new AppointmentFragment())
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+
+                case R.id.MyCartDrawer:
+                    // Navigate to My Cart
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.pharmacy_content_frame, new CartFragment())
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+
+                default:
+                    break;
+            }
+
+            // Close the drawer after item selection
+            if (drawerLayout != null) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+            return true;
+        });*/
 
         ImageButton viewmoreButton = view.findViewById(R.id.viewmore_button);
         viewmoreButton.setOnClickListener(v -> {

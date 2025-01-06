@@ -12,20 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/checkoutbutton"
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="156dp"
-        android:backgroundTint="#FFFFFF"
-        android:text="Check Out"
-        android:textColor="#646161"
-        android:textSize="16sp"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/checkoutbutton"
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="156dp"
+            android:text="Check Out"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/sidedrawer"

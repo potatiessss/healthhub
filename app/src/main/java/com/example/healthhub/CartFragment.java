@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -66,6 +68,25 @@ public class CartFragment extends Fragment {
             if (productList.isEmpty()) {
                 Toast.makeText(getContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
             } else {
+                // Calculate the subtotal
+                double subtotal = 0.0;
+                for (Product product : productList) {
+                    subtotal += product.getPrice() * product.getQuantity();
+                }
+
+                // Navigate to CheckoutFragment with data
+                Bundle bundle = new Bundle();
+                bundle.putDouble("subtotal", subtotal);
+                bundle.putDouble("postage", postage);  // Pass the fixed postage value
+                bundle.putDouble("discount", discount); // Pass the fixed discount value
+
+                CheckoutFragment checkoutFragment = new CheckoutFragment();
+                checkoutFragment.setArguments(bundle);
+
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Home, checkoutFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -200,6 +221,45 @@ public class CartFragment extends Fragment {
                 productCategory = itemView.findViewById(R.id.product_category);
                 productPrice = itemView.findViewById(R.id.product_price);
             }
+        }
+        private void performCheckout() {
+            // Validate the cart
+            if (productList == null || productList.isEmpty()) {
+                Toast.makeText(getContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Calculate the total price
+            double subtotal = 0.0;
+            for (Product product : productList) {
+                subtotal += product.getPrice() * product.getQuantity(); // Assuming Product has a quantity field
+            }
+            double total = subtotal + postage - discount;
+
+            // Proceed to checkout (example: navigate to a payment or summary screen)
+            navigateToCheckout(total);
+        }
+
+        private void navigateToCheckout(double totalAmount) {
+            // Example: Navigate to a checkout summary fragment using Navigation Component
+            Bundle bundle = new Bundle();
+            bundle.putDouble("totalAmount", totalAmount);
+            bundle.putSerializable("productList", new ArrayList<>(productList)); // Pass product list
+
+            // Not working yet because haven't implemented in nav.xml
+            /*NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_cartFragment_to_checkoutFragment, bundle);*/
+        }
+
+        private void clearCart() {
+            productList.clear();
+            productAdapter.notifyDataSetChanged();
+
+            // Reset totals
+            subtotalText.setText("RM0.00");
+            postageText.setText(String.format("RM%.2f", postage));
+            discountText.setText(String.format("RM%.2f", discount));
+            totalText.setText("RM0.00");
         }
     }
 }
