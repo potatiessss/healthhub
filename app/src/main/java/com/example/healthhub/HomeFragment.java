@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
         );
 
         view.findViewById(R.id.btn_pharmacy_home).setOnClickListener(v ->
-                Navigation.findNavController(view).navigate(R.id.action_home_to_articleFragment)
+                Navigation.findNavController(view).navigate(R.id.action_Home_to_pharmacyFragment)
         );
 
         // Appointments RecyclerView
