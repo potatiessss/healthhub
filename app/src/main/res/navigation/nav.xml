@@ -27,7 +27,7 @@
             app:destination="@id/Article" />
         <action
             android:id="@+id/action_home_to_myAppointmentFragment"
-            app:destination="@id/myAppointmentFragment" />
+            app:destination="@id/MyAppointment" />
     </fragment>
     <fragment
         android:id="@+id/Appointment"
@@ -47,14 +47,14 @@
         android:id="@+id/Pharmacy"
         android:name="com.example.healthhub.PharmacyFragment"
         android:label="fragment_pharmacy"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_pharmacy" />
     <fragment
         android:id="@+id/MyProfileFragment"
         android:name="com.example.healthhub.MyProfileFragment"
         android:label="fragment_my_profile"
         tools:layout="@layout/fragment_my_profile" />
     <fragment
-        android:id="@+id/myAppointmentFragment"
+        android:id="@+id/MyAppointment"
         android:name="com.example.healthhub.MyAppointmentFragment"
         android:label="MyAppointmentFragment" />
     <fragment
@@ -78,4 +78,19 @@
         android:name="com.example.healthhub.MLTDetailsFragment"
         android:label="fragment_m_l_t_details"
         tools:layout="@layout/fragment_m_l_t_details" />
+    <fragment
+        android:id="@+id/MyOrders"
+        android:name="com.example.healthhub.MyOrdersFragment"
+        android:label="fragment_my_orders"
+        tools:layout="@layout/fragment_my_orders" />
+    <fragment
+        android:id="@+id/MyCart"
+        android:name="com.example.healthhub.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/SavedArticles"
+        android:name="com.example.healthhub.SavedArticles"
+        android:label="fragment_saved_articles"
+        tools:layout="@layout/fragment_saved_articles" />
 </navigation>
