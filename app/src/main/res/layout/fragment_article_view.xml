@@ -8,12 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/greenbackground">
 
-    <!-- Toolbar Section -->
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="article_example.png" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolBar"
@@ -37,32 +32,9 @@
         <!-- Title TextView -->
 
         <!-- Search Button -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="108dp"
-            android:fontFamily="@font/interfont"
-            android:text="Articles"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/backButtonView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.9" />
 
-        <ImageButton
-            android:id="@+id/searchButtonView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
