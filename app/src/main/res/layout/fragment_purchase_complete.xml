@@ -5,13 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/white"
+    android:id="@+id/PurchaseComplete">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/placeholder_image"
-        app:tint="@color/green" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,15 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Check My Order"
+        android:text="Check My Cart"
         android:backgroundTint="@color/green"/>
 
-    <Button
-        android:id="@+id/btnHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Back to Home"
-        android:textColor="@color/green"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
 </LinearLayout>

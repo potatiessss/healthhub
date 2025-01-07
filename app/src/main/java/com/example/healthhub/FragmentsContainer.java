@@ -58,6 +58,16 @@ public class FragmentsContainer extends AppCompatActivity {
             }
         });
 
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.PurchaseComplete || destination.getId() == R.id.Checkout ) {
+                // Hide Bottom Navigation for specific fragments
+                findViewById(R.id.sidenavi).setVisibility(View.GONE);
+            } else {
+                // Show Bottom Navigation for other fragments
+                findViewById(R.id.sidenavi).setVisibility(View.VISIBLE);
+            }
+        });
+
         // Set up the custom hamburger button for toggling the drawer
         setupDrawerToggle();
 
@@ -88,3 +98,4 @@ public class FragmentsContainer extends AppCompatActivity {
         });
     }
 }
+

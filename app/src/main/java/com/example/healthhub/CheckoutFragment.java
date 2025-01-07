@@ -6,9 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,11 +29,15 @@ public class CheckoutFragment extends Fragment {
     private EditText edtPostcode;
     private RadioGroup rgPaymentMethod;
     private Button btnPay;
+    ImageView backbutton;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
+        backbutton = view.findViewById(R.id.back_button);
+        backbutton.setOnClickListener(v -> requireActivity().onBackPressed());
 
         initializeViews(view);
         setupPayButton();
@@ -58,9 +67,28 @@ public class CheckoutFragment extends Fragment {
         btnPay.setOnClickListener(v -> {
             if (validateInputs()) {
                 processPayment();
+
+
+                // Create a new instance of PurchaseCompleteFragment
+                PurchaseCompleteFragment fragment = new PurchaseCompleteFragment();
+
+                // Optionally, pass arguments to the fragment if needed
+                Bundle bundle = new Bundle();
+                // Example: bundle.putString("key", "value");
+                fragment.setArguments(bundle);
+
+                // Hide the BottomNavigationView & side navi
+                requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
+                requireActivity().findViewById(R.id.sidenavi).setVisibility(View.GONE);
+                // Use FragmentTransaction to replace the current fragment with PurchaseCompleteFragment
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.emptyFragment, fragment)
+                        .addToBackStack(null) // Add to back stack so user can navigate back
+                        .commit();
             }
         });
     }
+
 
     private boolean validateInputs() {
         boolean isValid = true;
@@ -124,8 +152,6 @@ public class CheckoutFragment extends Fragment {
                 ? "Online Banking"
                 : "Debit Card";
 
-        Toast.makeText(getContext(), "Processing payment...", Toast.LENGTH_SHORT).show();
-        //Navigation.findNavController(requireView()).navigate(R.id.action_checkout_to_purchaseComplete);
-
+        Toast.makeText(getContext(), "Horray!!! Success Payment!!", Toast.LENGTH_SHORT).show();
     }
 }

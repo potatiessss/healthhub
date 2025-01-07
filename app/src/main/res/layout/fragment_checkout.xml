@@ -4,20 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:id="@+id/Checkout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back Button"
+            android:src="@drawable/ic_back" />
+
+        <!-- Shipping Address Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Shipping Address"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilStreetAddress"
@@ -31,7 +44,7 @@
                 android:id="@+id/edtStreetAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"/>
+                android:inputType="textPostalAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +59,7 @@
                 android:id="@+id/edtCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"/>
+                android:inputType="textPostalAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -67,7 +80,7 @@
                     android:id="@+id/edtState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPostalAddress"/>
+                    android:inputType="textPostalAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -84,10 +97,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:maxLength="5"/>
+                    android:maxLength="5" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
+        <!-- Payment Method Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +109,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" />
 
         <RadioGroup
             android:id="@+id/rgPaymentMethod"
@@ -108,23 +122,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Online Banking"
-                android:padding="8dp"/>
+                android:padding="8dp" />
 
             <RadioButton
                 android:id="@+id/rbDebitCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Debit Card"
-                android:padding="8dp"/>
+                android:padding="8dp" />
         </RadioGroup>
 
+        <!-- Pay Button -->
         <Button
             android:id="@+id/btnPay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pay"
+            android:textColor="@color/white"
             android:backgroundTint="@color/green"
-            android:padding="16dp"/>
+            android:padding="16dp" />
 
     </LinearLayout>
 </ScrollView>
