@@ -21,7 +21,7 @@ public class ArticleViewFragment extends Fragment {
 
     private String articleId;
 
-    private com.example.healthhub.Article article;
+    private com.example.healthhub.models.Article article;
 
     private String USER_ID;
 
@@ -53,8 +53,8 @@ public class ArticleViewFragment extends Fragment {
             // Fetch product from Firebase
             Article_Firebase.fetchArticlesFromFirebase(new Article_Firebase.ArticleDataCallback() {
                 @Override
-                public void onArticlesFetched(List<com.example.healthhub.Article> articles) {
-                    for (com.example.healthhub.Article fetchedArticle : articles) {
+                public void onArticlesFetched(List<com.example.healthhub.models.Article> articles) {
+                    for (com.example.healthhub.models.Article fetchedArticle : articles) {
                         if (fetchedArticle.getTitle().equals(title)) {
                             articleTitle.setText(fetchedArticle.getTitle());
                             article = fetchedArticle; // Set the article variable

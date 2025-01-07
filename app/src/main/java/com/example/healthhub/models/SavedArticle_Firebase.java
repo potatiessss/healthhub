@@ -1,10 +1,8 @@
 package com.example.healthhub.models;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
-import com.example.healthhub.Article;
+import com.example.healthhub.models.Article;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

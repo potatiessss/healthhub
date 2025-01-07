@@ -25,11 +25,11 @@ public class Article_Firebase {
         articlesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<com.example.healthhub.Article> articles = new ArrayList<>();
+                List<com.example.healthhub.models.Article> articles = new ArrayList<>();
                 if (dataSnapshot.exists() && dataSnapshot.hasChildren()) {
                     for (DataSnapshot articleSnapshot : dataSnapshot.getChildren()) {
                         try {
-                            com.example.healthhub.Article article = articleSnapshot.getValue(com.example.healthhub.Article.class);
+                            com.example.healthhub.models.Article article = articleSnapshot.getValue(com.example.healthhub.models.Article.class);
                             if (article != null) {
                                 articles.add(article);
                             }
@@ -50,7 +50,7 @@ public class Article_Firebase {
     }
 
     // Save an article to a user's savedArticles in Firebase
-    public static void saveArticleToFirebase(String userId, String articleId, com.example.healthhub.Article article) {
+    public static void saveArticleToFirebase(String userId, String articleId, com.example.healthhub.models.Article article) {
         if (userId == null || articleId == null || article == null) {
             Log.e(TAG, "Invalid arguments for saving article");
             return;
@@ -89,7 +89,7 @@ public class Article_Firebase {
 
     // Callback interface to handle the result of data fetch
     public interface ArticleDataCallback {
-        void onArticlesFetched(List<com.example.healthhub.Article> articles);
+        void onArticlesFetched(List<com.example.healthhub.models.Article> articles);
         void onArticlesFetchedFailed(Exception exception);
     }
 }

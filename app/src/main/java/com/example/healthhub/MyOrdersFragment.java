@@ -1,65 +1,63 @@
 package com.example.healthhub;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyOrdersFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MyOrdersFragment extends Fragment {
+import com.example.healthhub.models.Order;
+import com.example.healthhub.models.OrderItem;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
-    public MyOrdersFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyOrdersFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyOrdersFragment newInstance(String param1, String param2) {
-        MyOrdersFragment fragment = new MyOrdersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+public class MyOrdersFragment extends Fragment implements OrderAdapter.OnOrderClickListener {
+    private RecyclerView recyclerView;
+    private OrderAdapter adapter;
+    private List<Order> orders;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_orders, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerViewOrders);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // In a real app, you would fetch this from a database or API
+        loadOrders();
+
+        adapter = new OrderAdapter(orders, this);
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
+    private void loadOrders() {
+        orders = new ArrayList<>();
+        // Sample data - replace with actual data from your database
+        List<OrderItem> items1 = new ArrayList<>();
+        items1.add(new OrderItem("Product 1", 2, 29.99));
+        items1.add(new OrderItem("Product 2", 1, 19.99));
+
+        List<OrderItem> items2 = new ArrayList<>();
+        items2.add(new OrderItem("Product 3", 1, 39.99));
+
+        orders.add(new Order("ORD001", new Date(), "123 Main St, City, State 12345",
+                "Credit Card", items1, 79.97));
+        orders.add(new Order("ORD002", new Date(), "456 Oak St, City, State 12345",
+                "Online Banking", items2, 39.99));
+    }
+
+    @Override
+    public void onOrderClick(Order order) {
+        Bundle bundle = new Bundle();
+        bundle.putString("orderId", order.getOrderId());
+        //Navigation.findNavController(getView()).navigate(R.id.action_myOrders_to_orderDetails, bundle);
     }
 }
