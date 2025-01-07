@@ -1,175 +1,373 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/green">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Pharmacy"
-        android:background="@drawable/greenbackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".Login">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/deliverypromo"
-            android:layout_width="500dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="64dp"
-            android:src="@drawable/delivery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
+        <!-- Header with title and search -->
+        <TextView
+            android:id="@+id/titlePharmacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Pharmacy"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/headline1pharmacy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="We Offer:"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deliverypromo" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="231dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/products_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headline1pharmacy" />
-
-        <TextView
-            android:id="@+id/product_iconpharmacy1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
-            android:text="Medicine"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView2" />
-
-        <TextView
-            android:id="@+id/product_iconpharmacy2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lab Tests"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/imageView2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/product_iconpharmacy3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="86dp"
-            android:text="Devices"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView2" />
-
-        <TextView
-            android:id="@+id/headline2pharmacy"
-            android:layout_width="210dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Popular Products"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/product_iconpharmacy2" />
-
-        <ImageButton
-            android:id="@+id/popular_product1"
-            android:layout_width="118dp"
-            android:layout_height="112dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:contentDescription="Button Image"
-            android:padding="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/popular_product1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
-
-        <ImageButton
-            android:id="@+id/popular_product2"
-            android:layout_width="119dp"
-            android:layout_height="111dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:contentDescription="Button Image"
-            android:padding="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/popular_product2"
-            app:layout_constraintStart_toEndOf="@id/popular_product1"
-            app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
-
-        <ImageButton
-            android:id="@+id/popular_product3"
-            android:layout_width="122dp"
-            android:layout_height="110dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:contentDescription="Button Image"
-            android:padding="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/popular_product3"
-            app:layout_constraintStart_toEndOf="@id/popular_product2"
-            app:layout_constraintTop_toBottomOf="@id/headline2pharmacy" />
-
-        <ImageButton
-            android:id="@+id/viewmore_button"
-            android:layout_width="180dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="12dp"
-            android:background="@null"
-            android:contentDescription="Button Image"
-            android:scaleType="centerInside"
-            android:src="@drawable/viewmore"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/popular_product1" />
-
         <ImageButton
             android:id="@+id/search_menu"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:contentDescription="Button Image"
-            android:padding="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/search"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/titlePharmacy"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.925"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.042" />
+            app:layout_constraintTop_toTopOf="@id/titlePharmacy" />
+
+        <!-- Delivery Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/deliveryCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/titlePharmacy">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fast and safe delivery!"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Guaranteed to ship 1-2 days\nafter payment!"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/orderNowButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Order now"
+                        android:backgroundTint="@color/green"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/delivery_truck" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Categories -->
+        <LinearLayout
+            android:id="@+id/categoriesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/deliveryCard">
+
+            <LinearLayout
+                android:id="@+id/allCategoriesButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/all_categories" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="All\nCategories"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/medicineButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/med" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Medicine"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/labTestButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/labtests" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Lab tests"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/devicesButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/devices" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Devices"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Popular Products Section -->
+        <LinearLayout
+            android:id="@+id/popularProductsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/categoriesLayout">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Popular products"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/seeAllButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See all"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Popular Products Grid -->
+        <LinearLayout
+            android:id="@+id/popularProductsGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/popularProductsHeader">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/product1Card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <ImageButton
+                        android:id="@+id/product1Image"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/product1Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:maxLines="2"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/product1Price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/product2Card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <ImageButton
+                        android:id="@+id/product2Image"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/product2Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:maxLines="2"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/product2Price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/product3Card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <ImageButton
+                        android:id="@+id/product3Image"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/product3Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:maxLines="2"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/product3Price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- Free Shipping Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/freeShippingCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popularProductsGrid">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enjoy free shipping when\norders exceed RM 35!"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/orderNowButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Order now"
+                    android:backgroundTint="@color/green"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

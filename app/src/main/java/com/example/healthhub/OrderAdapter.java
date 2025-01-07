@@ -4,19 +4,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthhub.models.Order;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
     private List<Order> orders;
     private OnOrderClickListener listener;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
 
     public interface OnOrderClickListener {
         void onOrderClick(Order order);
@@ -48,13 +47,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     class OrderViewHolder extends RecyclerView.ViewHolder {
         private TextView tvOrderId;
-        private TextView tvOrderDate;
         private TextView tvTotalAmount;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             tvOrderId = itemView.findViewById(R.id.tvOrderId);
-            tvOrderDate = itemView.findViewById(R.id.tvOrderDate);
             tvTotalAmount = itemView.findViewById(R.id.tvTotalAmount);
 
             itemView.setOnClickListener(v -> {
@@ -67,8 +64,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         public void bind(Order order) {
             tvOrderId.setText("Order #" + order.getOrderId());
-            tvOrderDate.setText(dateFormat.format(order.getOrderDate()));
-            tvTotalAmount.setText(String.format(Locale.getDefault(), "$%.2f", order.getTotalAmount()));
+            tvTotalAmount.setText(String.format(Locale.getDefault(), "RM %.2f", order.getTotalAmount()));
         }
     }
 }

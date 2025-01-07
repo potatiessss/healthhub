@@ -1,136 +1,200 @@
 package com.example.healthhub;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 import com.example.healthhub.models.Product;
 import com.example.healthhub.models.Product_Firebase;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PharmacyFragment extends Fragment {
+    private List<CardView> productCards;
+    private List<ImageView> productImages;
+    private List<TextView> productNames;
+    private List<TextView> productPrices;
 
     public PharmacyFragment() {
+        // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pharmacy, container, false);
-
-        //ImageButton backButton = view.findViewById(R.id.hamburger_menu);
-        //backButton.setOnClickListener(v -> requireActivity().onBackPressed());
-
-        ImageButton viewmoreButton = view.findViewById(R.id.viewmore_button);
-        viewmoreButton.setOnClickListener(v -> {
-            MLTListFragment fragment = new MLTListFragment();
-
-            Bundle bundle = new Bundle();
-
-            fragment.setArguments(bundle);
-            requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
-
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.emptyFragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
-
-        ImageButton searchButton = view.findViewById(R.id.search_menu);
-        searchButton.setOnClickListener(v -> {
-            SearchFragment fragment = new SearchFragment();
-
-            Bundle bundle = new Bundle();
-            fragment.setArguments(bundle);
-
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.emptyFragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
-
-
-        ImageButton productButton1 = view.findViewById(R.id.popular_product1);
-        productButton1.setOnClickListener(v -> {
-            Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
-                @Override
-                public void onProductsFetched(List<Product> products) {
-                    Product product = findProductByName(products, "Ibuprofen (400mg)");
-                    if (product != null) {
-                        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
-                        navigateToMLTDetails(product);
-                    }
-                }
-
-                @Override
-                public void onProductsFetchFailed(Exception exception) {
-                    // Handle error if fetching fails
-                }
-            });
-        });
-
-        ImageButton productButton2 = view.findViewById(R.id.popular_product2);
-        productButton2.setOnClickListener(v -> {
-            Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
-                @Override
-                public void onProductsFetched(List<Product> products) {
-                    Product product = findProductByName(products, "Pregnancy Test");
-                    if (product != null) {
-                        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
-                        navigateToMLTDetails(product);
-                    }
-                }
-
-                @Override
-                public void onProductsFetchFailed(Exception exception) {
-                    // Handle error if fetching fails
-                }
-            });
-        });
-
-        ImageButton productButton3 = view.findViewById(R.id.popular_product3);
-        productButton3.setOnClickListener(v -> {
-            Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
-                @Override
-                public void onProductsFetched(List<Product> products) {
-                    Product product = findProductByName(products, "Salbutamol Inhaler (100mcg)");
-                    if (product != null) {
-                        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
-                        navigateToMLTDetails(product);
-                    }
-                }
-
-                @Override
-                public void onProductsFetchFailed(Exception exception) {
-                    // Handle error if fetching fails
-                }
-            });
-        });
-
+        initializeViews(view);
+        setupClickListeners(view);
+        loadRandomProducts();
         return view;
     }
 
+    private void initializeViews(View view) {
+        productCards = new ArrayList<>();
+        productImages = new ArrayList<>();
+        productNames = new ArrayList<>();
+        productPrices = new ArrayList<>();
+
+        // Initialize product card views
+        productCards.add(view.findViewById(R.id.product1Card));
+        productCards.add(view.findViewById(R.id.product2Card));
+        productCards.add(view.findViewById(R.id.product3Card));
+
+        // Initialize product images
+        productImages.add(view.findViewById(R.id.product1Image));
+        productImages.add(view.findViewById(R.id.product2Image));
+        productImages.add(view.findViewById(R.id.product3Image));
+
+        // Initialize product names
+        productNames.add(view.findViewById(R.id.product1Name));
+        productNames.add(view.findViewById(R.id.product2Name));
+        productNames.add(view.findViewById(R.id.product3Name));
+
+        // Initialize product prices
+        productPrices.add(view.findViewById(R.id.product1Price));
+        productPrices.add(view.findViewById(R.id.product2Price));
+        productPrices.add(view.findViewById(R.id.product3Price));
+    }
+
+    private void setupClickListeners(View view) {
+        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
+        // Search button
+        view.findViewById(R.id.search_menu).setOnClickListener(v -> navigateToSearch());
+
+        // Category buttons
+        view.findViewById(R.id.allCategoriesButton).setOnClickListener(v ->
+                navigateToMLTList(null));
+        view.findViewById(R.id.medicineButton).setOnClickListener(v ->
+                navigateToMLTList("MEDICINE"));
+        view.findViewById(R.id.labTestButton).setOnClickListener(v ->
+                navigateToMLTList("LAB TEST"));
+        view.findViewById(R.id.devicesButton).setOnClickListener(v ->
+                navigateToMLTList("MEDICAL DEVICE"));
+
+        // Order now buttons
+        view.findViewById(R.id.orderNowButton1).setOnClickListener(v ->
+                navigateToMLTList(null));
+        view.findViewById(R.id.orderNowButton2).setOnClickListener(v ->
+                navigateToMLTList(null));
+
+        // See all button
+        view.findViewById(R.id.seeAllButton).setOnClickListener(v ->
+                navigateToMLTList(null));
+
+        /*view.findViewById(R.id.product1Image).setOnClickListener(v ->
+                navigateToMLTDetails(product));
+        view.findViewById(R.id.product2Image).setOnClickListener(v ->
+                navigateToMLTDetails(product));
+        view.findViewById(R.id.product3Image).setOnClickListener(v ->
+                navigateToMLTDetails(product));*/
+    }
+
+
+
+    private void loadRandomProducts() {
+        Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
+            @Override
+            public void onProductsFetched(List<Product> products) {
+                if (products.size() >= 3) {
+                    // Shuffle the products list to get random products
+                    List<Product> shuffledProducts = new ArrayList<>(products);
+                    Collections.shuffle(shuffledProducts);
+
+                    // Display the first 3 random products
+                    for (int i = 0; i < 3; i++) {
+                        final Product product = shuffledProducts.get(i);
+                        final int index = i;
+
+                        // Update UI on main thread
+                        requireActivity().runOnUiThread(() -> {
+                            displayProduct(product, index);
+                            setupProductClickListener(product, productCards.get(index));
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onProductsFetchFailed(Exception exception) {
+                // Handle the error appropriately
+            }
+        });
+    }
+
+    private void displayProduct(Product product, int index) {
+        // Load product image using Picasso
+        Picasso.get()
+                .load(product.getImage())
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.error_image)
+                .into(productImages.get(index));
+
+
+        // Set product name and price
+        productNames.get(index).setText(product.getName());
+        productPrices.get(index).setText(String.format("RM %.2f", product.getPrice()));
+    }
+
+    private void setupProductClickListener(Product product, CardView productCard) {
+        productCard.setOnClickListener(v -> {
+            requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
+            MLTDetailsFragment fragment = new MLTDetailsFragment();
+            Bundle args = new Bundle();
+            args.putString("productId", product.getProductId());
+            args.putString("name", product.getName());
+            fragment.setArguments(args);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.emptyFragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+    }
+
+    private void navigateToSearch() {
+        SearchFragment fragment = new SearchFragment();
+        navigateToFragment(fragment);
+    }
+
+    private void navigateToMLTList(@Nullable String category) {
+        MLTListFragment fragment = new MLTListFragment();
+        if (category != null) {
+            Bundle args = new Bundle();
+            args.putString("category", category);
+            fragment.setArguments(args);
+        }
+        navigateToFragment(fragment);
+    }
+
     private void navigateToMLTDetails(Product product) {
-        Bundle bundle = new Bundle();
-        bundle.putString("name", product.getName());
-        bundle.putString("category", product.getCategory());
-        bundle.putDouble("price", product.getPrice());
-        bundle.putString("usefulFor", product.getUsefulFor());
-        bundle.putString("dosage", product.getDosage());
-        bundle.putString("postage", product.getPostage());
-        bundle.putString("imageUrl", product.getImage());
-        bundle.putString("productId", product.getProductId());
-
         MLTDetailsFragment fragment = new MLTDetailsFragment();
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString("productId", product.getProductId());
+        args.putString("name", product.getName());
+        args.putString("category", product.getCategory());
+        args.putDouble("price", product.getPrice());
+        args.putString("usefulFor", product.getUsefulFor());
+        args.putString("dosage", product.getDosage());
+        args.putString("postage", product.getPostage());
+        args.putString("imageUrl", product.getImage());
+        fragment.setArguments(args);
+        navigateToFragment(fragment);
+    }
 
-        requireActivity().getSupportFragmentManager().beginTransaction()
+    private void navigateToFragment(Fragment fragment) {
+        requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.GONE);
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.emptyFragment, fragment)
                 .addToBackStack(null)
                 .commit();
@@ -140,41 +204,5 @@ public class PharmacyFragment extends Fragment {
     public void onResume() {
         super.onResume();
         requireActivity().findViewById(R.id.bottomNavi).setVisibility(View.VISIBLE);
-    }
-
-    private void navigateToMLTList(Product product) {
-        if (product == null) {
-            Log.w("PharmacyFragment", "Product is null, cannot navigate");
-            return;
-        }
-
-        Bundle bundle = new Bundle();
-        bundle.putString("name", product.getName() != null ? product.getName() : "Unknown");
-        bundle.putString("category", product.getCategory() != null ? product.getCategory() : "Unknown");
-        bundle.putString("price", product.getPrice() != 0 ? String.valueOf(product.getPrice()) : "Unknown");
-        bundle.putString("usefulFor", product.getUsefulFor() != null ? product.getUsefulFor() : "Unknown");
-        bundle.putString("dosage", product.getDosage() != null ? product.getDosage() : "Unknown");
-        bundle.putString("postage", product.getPostage() != null ? product.getPostage() : "Unknown");
-        bundle.putString("imageUrl", product.getImage());
-        bundle.putString("productId", product.getProductId() != null ? product.getProductId() : "Unknown");
-
-
-        MLTListFragment fragment = new MLTListFragment();
-        fragment.setArguments(bundle);
-
-        requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.emptyFragment, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
-
-    private Product findProductByName(List<Product> products, String name) {
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                return product;
-            }
-        }
-        return null;
-    }
+}
 }
