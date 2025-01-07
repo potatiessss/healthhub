@@ -1,22 +1,30 @@
 package com.example.healthhub;
 
-import android.content.Context;
-import android.os.Bundle; import androidx.annotation.NonNull; import androidx.annotation.Nullable; import androidx.fragment.app.Fragment;
-
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater; import android.view.View; import android.view.ViewGroup;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton; import android.widget.ImageView; import android.widget.TextView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.healthhub.models.Product; import com.example.healthhub.models.Product_Firebase; import com.squareup.picasso.Picasso;
+import com.example.healthhub.models.Product;
+import com.example.healthhub.models.Product_Firebase;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MLTDetailsFragment extends Fragment {
-
+    private static final String TAG = "MLTDetailsFragment";
     private CartManager cartManager;
     private String productId;
+    private Product currentProduct;
 
     @Nullable
     @Override
@@ -28,87 +36,121 @@ public class MLTDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView productName = view.findViewById(R.id.product_name);
-        TextView productCategory = view.findViewById(R.id.product_category);
-        TextView productPrice = view.findViewById(R.id.product_price);
-        TextView usefulForTextDetails = view.findViewById(R.id.useful_for_text_details);
-        TextView dosageTextDetails = view.findViewById(R.id.dosage_text_details);
-        TextView postageTextDetails = view.findViewById(R.id.postage_text_details);
-        ImageView productImage = view.findViewById(R.id.product_image);
-        Button addToCartButton = view.findViewById(R.id.add_to_cart_button);
+        initializeViews(view);
+        loadProductData();
+        setupClickListeners(view);
+    }
 
+    private void initializeViews(View view) {
         cartManager = new CartManager();
+    }
 
+    private void loadProductData() {
         Bundle args = getArguments();
-        if (args != null) {
-            String name = args.getString("name");
-            productId = args.getString("productId");
+        if (args == null) {
+            Log.e(TAG, "No arguments provided to fragment");
+            showError("Error loading product details");
+            return;
+        }
 
-            // Fetch product from Firebase
-            Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
-                @Override
-                public void onProductsFetched(List<Product> products) {
-                    for (Product product : products) {
-                        if (product.getName().equals(name)) {
-                            productName.setText(product.getName());
-                            productCategory.setText(product.getCategory());
-                            productPrice.setText(String.valueOf(product.getPrice()));
-                            usefulForTextDetails.setText(product.getUsefulFor());
-                            dosageTextDetails.setText(product.getDosage());
-                            postageTextDetails.setText(product.getPostage());
+        productId = args.getString("productId");
+        String name = args.getString("name");
 
-                            // Use Picasso to load the image from the URL
-                            Picasso.get().load(product.getImage()).into(productImage);
-                            break;
-                        }
+        if (productId == null && name == null) {
+            Log.e(TAG, "Neither productId nor name provided");
+            showError("Error loading product details");
+            return;
+        }
+
+        Product_Firebase.fetchProductsFromFirebase(new Product_Firebase.ProductDataCallback() {
+            @Override
+            public void onProductsFetched(List<Product> products) {
+                Product matchedProduct = null;
+                for (Product product : products) {
+                    if ((productId != null && product.getProductId().equals(productId)) ||
+                            (name != null && product.getName().equals(name))) {
+                        matchedProduct = product;
+                        break;
                     }
                 }
 
-                @Override
-                public void onProductsFetchFailed(Exception exception) {
-                    // Handle error if fetching fails
+                if (matchedProduct != null) {
+                    currentProduct = matchedProduct;
+                    updateUI(matchedProduct);
+                } else {
+                    Log.e(TAG, "Product not found in database");
+                    showError("Product not found");
                 }
-            });
-        }
+            }
 
+            @Override
+            public void onProductsFetchFailed(Exception exception) {
+                Log.e(TAG, "Failed to fetch product data", exception);
+                showError("Failed to load product details");
+            }
+        });
+    }
+
+    private void updateUI(Product product) {
+        if (!isAdded() || getView() == null) return;
+
+        View view = getView();
+
+        // Update text views
+        setText(view, R.id.product_name, product.getName());
+        setText(view, R.id.product_category, product.getCategory());
+        setText(view, R.id.product_price, String.format("RM %.2f", product.getPrice()));
+        setText(view, R.id.useful_for_text_details, product.getUsefulFor());
+        setText(view, R.id.dosage_text_details, product.getDosage());
+        setText(view, R.id.postage_text_details, product.getPostage());
+
+        // Load image
+        ImageView productImage = view.findViewById(R.id.product_image);
+        if (product.getImage() != null && !product.getImage().isEmpty()) {
+            Picasso.get()
+                    .load(product.getImage())
+                    .error(R.drawable.placeholder_image)
+                    .into(productImage);
+        }
+    }
+
+    private void setText(View view, int id, String text) {
+        TextView textView = view.findViewById(id);
+        if (textView != null && text != null) {
+            textView.setText(text);
+        }
+    }
+
+    private void setupClickListeners(View view) {
+        // Add to Cart button
+        Button addToCartButton = view.findViewById(R.id.add_to_cart_button);
         addToCartButton.setOnClickListener(v -> {
-            Log.d("MLTDetailsFragment", "Add to cart button clicked for product ID: " + productId);
-            if (productId != null) {
-                cartManager.addToCart(productId);
-                Toast.makeText(requireContext(), "Added to cart!", Toast.LENGTH_SHORT).show(); // Show the Toast message
-            } else {
-                Log.e("MLTDetailsFragment", "Product ID is null, cannot add to cart.");
+            if (currentProduct != null) {
+                cartManager.addToCart(currentProduct.getProductId());
+                Toast.makeText(requireContext(), "Added to cart!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        ImageButton buyButton = view.findViewById(R.id.buy_now_button);
-        buyButton.setOnClickListener(v -> {
-            CartFragment fragment = new CartFragment();
 
-            Bundle bundle = new Bundle();
-            fragment.setArguments(bundle);
 
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.emptyFragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
 
-        ImageButton cartButton = view.findViewById(R.id.cart_button_MLTDetails);
-        cartButton.setOnClickListener(v -> {
-            CartFragment fragment = new CartFragment();
 
-            Bundle bundle = new Bundle();
-            fragment.setArguments(bundle);
-
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.emptyFragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
-
-        // Back button functionality
+        // Back button
         ImageButton backButton = view.findViewById(R.id.back_button_MLTDetails);
         backButton.setOnClickListener(v -> requireActivity().onBackPressed());
+    }
+
+    private void navigateToCart() {
+        CartFragment fragment = new CartFragment();
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.emptyFragment, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void showError(String message) {
+        if (isAdded()) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 }

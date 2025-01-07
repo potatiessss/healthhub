@@ -5,6 +5,9 @@ public class OrderItem {
     private int quantity;
     private double price;
 
+    public OrderItem() {}
+
+
     public OrderItem(String productName, int quantity, double price) {
         this.productName = productName;
         this.quantity = quantity;
@@ -16,4 +19,8 @@ public class OrderItem {
     public int getQuantity() { return quantity; }
     public double getPrice() { return price; }
     public double getSubtotal() { return quantity * price; }
+
+    public void setProductName(String productName) { this.productName = productName; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setPrice(double price) { this.price = price; }
 }

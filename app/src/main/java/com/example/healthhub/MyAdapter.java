@@ -31,7 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ProductViewHolder>
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.product_view, parent, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.item_product, parent, false);
         return new ProductViewHolder(itemView);
     }
 
@@ -39,8 +39,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ProductViewHolder>
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product_List product = productList.get(position);
         holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText(String.format("$%.2f", product.getPrice()));
-
+        String formattedPrice = String.format("RM %.2f", product.getPrice());
+        holder.priceTextView.setText(formattedPrice);
         // Use Picasso to load image from URL
         Picasso.get().load(product.getImage()).into(holder.productImageView);
 

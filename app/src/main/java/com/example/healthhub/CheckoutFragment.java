@@ -6,12 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.healthhub.models.CartItem;
+import com.example.healthhub.models.Cart_Firebase;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 public class CheckoutFragment extends Fragment {
     private TextInputLayout tilStreetAddress;
@@ -24,12 +30,14 @@ public class CheckoutFragment extends Fragment {
     private EditText edtPostcode;
     private RadioGroup rgPaymentMethod;
     private Button btnPay;
+    ImageView backbutton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
-
+        backbutton = view.findViewById(R.id.back_button);
+        backbutton.setOnClickListener(v -> requireActivity().onBackPressed());
         initializeViews(view);
         setupPayButton();
 
@@ -57,7 +65,15 @@ public class CheckoutFragment extends Fragment {
     private void setupPayButton() {
         btnPay.setOnClickListener(v -> {
             if (validateInputs()) {
-                processPayment();
+                processPayment(); // Process the payment first
+
+                // Create and navigate to PurchaseCompleteFragment
+                PurchaseCompleteFragment fragment = new PurchaseCompleteFragment();
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.emptyFragment, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
@@ -110,8 +126,8 @@ public class CheckoutFragment extends Fragment {
         return isValid;
     }
 
+    // In CheckoutFragment.java
     private void processPayment() {
-        // Get the address details
         String address = String.format("%s, %s, %s %s",
                 edtStreetAddress.getText().toString().trim(),
                 edtCity.getText().toString().trim(),
@@ -119,13 +135,46 @@ public class CheckoutFragment extends Fragment {
                 edtPostcode.getText().toString().trim()
         );
 
-        // Get the selected payment method
         String paymentMethod = rgPaymentMethod.getCheckedRadioButtonId() == R.id.rbOnlineBanking
                 ? "Online Banking"
                 : "Debit Card";
 
-        Toast.makeText(getContext(), "Processing payment...", Toast.LENGTH_SHORT).show();
-        //Navigation.findNavController(requireView()).navigate(R.id.action_checkout_to_purchaseComplete);
+        Cart_Firebase.fetchCartItems(new Cart_Firebase.CartCallback() {
+            @Override
+            public void onCartItemsFetched(List<CartItem> cartItems) {
+                double subtotal = 0;
+                for (CartItem item : cartItems) {
+                    subtotal += item.getProduct().getPrice() * item.getQuantity();
+                }
 
+                // Add delivery fee if applicable
+                double totalAmount = subtotal;
+                if (subtotal < 60.00) {
+                    totalAmount += 8.00;
+                }
+
+                OrderManager orderManager = new OrderManager();
+                orderManager.createOrder(address, paymentMethod, cartItems, totalAmount,
+                        new OrderManager.OrderCallback() {
+                            @Override
+                            public void onSuccess(String orderId) {
+                                Toast.makeText(getContext(), "Order placed successfully!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                Toast.makeText(getContext(), "Failed to place order: " +
+                                        e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(getContext(), "Failed to fetch cart items: " +
+                        e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -55,8 +55,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         public void bind(OrderItem item) {
             tvProductName.setText(item.getProductName());
             tvQuantity.setText(String.valueOf(item.getQuantity()));
-            tvPrice.setText(String.format(Locale.getDefault(), "$%.2f", item.getPrice()));
-            tvSubtotal.setText(String.format(Locale.getDefault(), "$%.2f", item.getSubtotal()));
- }
+            tvPrice.setText(String.format(Locale.getDefault(), "RM %.2f", item.getPrice()));
+            tvSubtotal.setText(String.format(Locale.getDefault(), "RM %.2f", item.getSubtotal()));
+        }
 }
 }

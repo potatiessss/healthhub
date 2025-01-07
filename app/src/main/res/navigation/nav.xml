@@ -97,4 +97,13 @@
         android:id="@+id/savedArticleFragment"
         android:name="com.example.healthhub.SavedArticleFragment"
         android:label="SavedArticleFragment" />
+    <fragment
+        android:id="@+id/CheckoutFragment"
+        android:name="com.example.healthhub.CheckoutFragment"
+        android:label="CheckoutFragment" />
+
+    <fragment
+        android:id="@+id/PurchaseCompleteFragment"
+        android:name="com.example.healthhub.PurchaseCompleteFragment"
+        android:label="PurchaseCompleteFragment" />
 </navigation>
